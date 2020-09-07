@@ -1,0 +1,108 @@
+.login-wrap {
+  border-radius: 9px;
+  padding: 20px;
+  border: 1px solid lightgray;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  font-family: "Baloo Tamma 2", cursive;
+  .MuiInput-underline:before {
+    border-bottom: 1px solid white !important;
+  }
+}
+
+.login-button {
+  height: 50px;
+  font-family: "Baloo Tamma 2", cursive;
+  color: white !important;
+  background-color: #1f67e4 !important;
+  width: 100%;
+}
+
+.register-button {
+  height: 50px;
+  font-family: "Baloo Tamma 2", cursive;
+  color: black !important;
+  background-color: #fff !important;
+  width: 100%;
+}
+
+.text-field-login {
+  width: 100%;
+  margin-bottom: 30px !important;
+
+  input {
+    color: white !important;
+  }
+}
+
+.login-title {
+  color: white;
+  text-align: center;
+  font-family: "Baloo Tamma 2", cursive;
+  font-size: 2rem;
+}
+
+.home-button-wrap {
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  background-color: #02549c54;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  cursor: pointer;
+  .home-icon {
+    font-size: 3rem;
+  }
+  p {
+    text-transform: uppercase;
+    font-family: "Baloo Tamma 2", cursive;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+.bannerlogin {
+  display: flex;
+  flex-wrap: wrap;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/images/hero.jpeg") !important;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.error-login{
+  text-align: center;
+  color:red;
+  font-family: "Baloo Tamma 2", cursive;
+  font-size: 1.2rem;
+  margin: 0;
+  font-style: italic;
+}
+
+
+.MuiContainer-root {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.login-container {
+  padding-top: 60px !important;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+}

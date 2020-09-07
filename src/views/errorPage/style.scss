@@ -1,0 +1,45 @@
+.public-wrapper-error {
+  display: flex;
+  justify-content: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/images/hero.jpeg") !important;
+  background-size: cover !important;
+  height: 100vh;
+}
+
+.text-wrap-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  text-shadow: 1px 2px 3px #666;
+  font-family: "Baloo Tamma 2", cursive;
+  color: white;
+  padding: 0;
+
+  .ops-text {
+    margin: 0;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+  }
+  .fail-text {
+    margin: 0;
+    font-size: 5rem;
+    text-transform: uppercase;
+  }
+  h3 {
+    margin: 0;
+    font-size: 2rem;
+    text-transform: uppercase;
+  }
+
+  button {
+    font-family: "Baloo Tamma 2", cursive;
+    margin-top: 2rem;
+    max-width: 500px;
+    height: 80px;
+    font-size: 3rem;
+    background: white !important;
+  }
+}

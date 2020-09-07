@@ -1,0 +1,49 @@
+.profileWrapper {
+  max-width: 200px;
+  margin: 0 auto;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  font-family: "Baloo Tamma 2", cursive;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  border-radius: 9px;
+  padding: 10px;
+}
+
+.profile-inner-wrap {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-name {
+  text-transform: uppercase;
+}
+
+.qr-code {
+  width: 150px;
+  margin-bottom: 10px;
+  border-radius: 9px;
+}
+
+
+.download-btn{
+  background-color:white !important;
+  border: 1px solig lightgray;
+  border-radius: 9px;
+}
+
+.download-link{
+  text-decoration: none;
+}

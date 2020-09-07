@@ -1,0 +1,164 @@
+.wrapper-bottom {
+  padding: 20px;
+}
+
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/images/hero.jpeg") !important;
+  background-size: cover !important;
+  height: auto;
+  min-height: 100vh;
+  padding-top: 60px;
+}
+
+.settings-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-start;
+  flex-direction: column;
+  color: white;
+  small {
+    font-family: "Baloo Tamma 2", cursive;
+    font-size: 1rem;
+  }
+  cursor: pointer;
+
+  &:visited {
+    color: white;
+  }
+  &:link {
+    text-decoration: none;
+  }
+}
+
+.settings-icon {
+  height: 50px;
+  width: 50px;
+
+  border-radius: 50%;
+  color: white !important;
+  font-size: 3rem !important;
+}
+
+.email-wrap{
+  display: flex;
+  align-items: center;
+  a{
+    text-decoration: none;
+    color: white;
+    font-size: 1.3rem !important;
+  }
+}
+
+.text-wrap-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  justify-content: center;
+  padding-bottom: 10px !important;
+  text-shadow: 1px 2px 3px #666;
+  font-family: "Baloo Tamma 2", cursive;
+  color: white;
+  font-size: 1.5rem;
+  padding: 40px;
+  p {
+    margin: 0;
+  }
+  h2 {
+    margin: 0;
+    text-transform: uppercase;
+  }
+}
+
+.edit-button-mode{
+  background: white !important;
+  border-radius: 9px !important;
+float: right;
+margin-bottom: 10px !important;
+}
+
+.show-profile-btn{
+  color: white !important;
+  text-decoration: underline;
+  border-radius: 9px !important;
+  font-family: "Baloo Tamma 2", cursive;
+}
+
+.highlight-text {
+  border-top: 1px solid lightgray !important;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 40px;
+  font-family: "Baloo Tamma 2", cursive;
+  font-size: 16px;
+}
+
+
+.edit-active-social{
+  border: 10px solid white !important;
+}
+
+.reorder-text{
+  text-align: center;
+  font-family: "Baloo Tamma 2", cursive;
+color: white;
+width: 100%;
+}
+
+.edit-switch{
+  margin-left: 10px;
+  .MuiIconButton-label{
+    color:#03a9f4;
+  }
+  .MuiSwitch-track{
+    background: gray;
+  }
+  .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track{
+    opacity: 0.6;
+    background:white
+  }
+}
+
+.phone-input{
+  .MuiFormLabel-root{
+    color:lightgray;
+  }
+  .MuiOutlinedInput-notchedOutline{
+    border-color: white;
+  }
+  .MuiOutlinedInput-root,.MuiOutlinedInput-notchedOutline,.Mui-focused{
+    border-color: white !important;
+  }
+  .PrivateNotchedOutline-legendLabelled-3{
+    color:white
+  }
+  .MuiFormLabel-root.Mui-focused{
+    color:lightgray;
+  }
+  input{
+    color: white;;
+  }
+}
+
+
+.no-socials-text{
+  font-family: "Baloo Tamma 2", cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h3{
+    color:white;
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  p{
+    color:white;
+    font-size: 1.5rem;
+  }
+}

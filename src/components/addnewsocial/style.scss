@@ -1,0 +1,70 @@
+.add-grid{
+  display: flex;
+  justify-content: center;
+
+  :hover{
+    background-color: #ddebf8;
+  }
+  margin-bottom: 50px !important;
+}
+
+.add-wrapper{
+    cursor: pointer;
+    font-family: 'Baloo Tamma 2', cursive;
+    font-weight: 500;
+    display: flex;
+    justify-content:space-evenly;
+   align-items: center;
+  width: 200px;
+  padding:10px;
+  margin-bottom: 40px;
+ border: 2px solid lightgray;
+ box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2), 0 6px 5px 0 rgba(0,0,0,0.19);
+  border-radius: 9px;
+  background: whitesmoke;
+  // -webkit-box-shadow: 0px -1px 18px -5px rgba(138,136,138,1);
+  // -moz-box-shadow: 0px -1px 18px -5px rgba(138,136,138,1);
+  // box-shadow: 0px -1px 18px -5px rgba(138,136,138,1);
+ 
+
+  button:hover{
+    background: none;
+  }
+}
+
+.add-icon{
+    color:#1f67e4;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+
+.autocomplete{
+  margin-bottom: 20px;
+}
+
+.add-social-dialog{
+  font-family: 'Baloo Tamma 2', cursive;
+}
+
+
+.auto-icon{
+  height: 30px;
+}
+
+.autocomplete-row{
+  font-family: 'Baloo Tamma 2', cursive;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p{
+    padding: 0;
+    margin: 5px;
+  }
+}
+
+.social-field{
+  width: 250px;
+}
