@@ -15,7 +15,8 @@ export const API = {
   },
   public:{
     list:"/:user",
-    qrcode:"/generateqr"
+    qrcode:"/generateqr",
+    verify:"/verify/:activationtoken"
   },
   users:{
     update:"/user_update",

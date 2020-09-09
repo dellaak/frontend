@@ -25,14 +25,14 @@ const authorizationService = {
       password: password
     })
       .then(response => {
+      
         const expirationDate = new Date(response.data.message.expires);
         sessionStorage.setItem(SESSION_TOKEN_KEY, response.data.message.token);
         sessionStorage.setItem(SESSION_TOKEN_EXPIRATION_DATE_KEY, expirationDate);
         callback(response);
       })
       .catch(error => {
-        console.log(error)
-        callback(error);
+        callback(error.response);
       });
   },
   getSessionToken: () => {

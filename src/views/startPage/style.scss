@@ -121,6 +121,26 @@
   }
 }
 
+.pulic-url-wrap{
+color: white;
+font-size: 2rem;
+font-family: "Baloo Tamma 2", cursive;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+
+p{
+  margin: 0;
+}
+a{
+ margin: 0;
+  color: beige;
+  text-decoration: underline;
+}
+}
+
 // .login-button {
 //   width: 100% !important;
 // }

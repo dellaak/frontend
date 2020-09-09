@@ -19,7 +19,7 @@ export const PublicPage = () => {
   const publicUser = useSelector((state) => state.public);
   const [noUser, setNoUser] = useState(false);
   const [showQr, setShowQr] = useState(false);
-  const routes = ["/login", "/profile", "/settings"];
+
 
   useEffect(() => {
     dispatch(actions.getSocialsPublic(user));
@@ -52,7 +52,7 @@ export const PublicPage = () => {
   };
 
   useEffect(() => {
-    if (publicUser.error && !routes.includes(window.location.pathname)) {
+    if (publicUser.error ) {
       setNoUser(true);
     }
   }, [publicUser]);
@@ -68,10 +68,10 @@ export const PublicPage = () => {
                 
                   <h2>@{selectedUser.username} </h2>
 
-                  <div className="email-wrap">
+                  {selectedUser.showEmail && <div className="email-wrap">
                     <EmailIcon />
                     <a href={`mailto:${selectedUser.email}`}>{selectedUser.email} </a>
-                  </div>
+                  </div>}
                   <Button
                   className="show-button"
                     onClick={() => {

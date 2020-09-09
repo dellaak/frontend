@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { SettingsPage } from "./views/settingsPage";
 import { PublicPage} from "./views/publicPage";
 import {ErrorPage} from "./views/errorPage"
+import {VerifiedPage} from "./views/verifiedPage"
 import { SnackbarContainer } from "./components/alerts/SnackbarContainer";
 import "./Appstyle.scss";
 
@@ -21,6 +22,8 @@ function App() {
         <Route path="/profile" component={ProfilePage} />
         <Route path="/settings" component={SettingsPage} />
         <Route path="/:user" component={PublicPage} />
+        <Route path="/verify/:activationtoken" component={VerifiedPage} />
+       
         <Route path="/404" component={ErrorPage} />
         
 

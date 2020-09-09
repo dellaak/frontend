@@ -10,7 +10,8 @@ export {
 
   export {
    getSocialsPublic,
-   getQrCode
+   getQrCode,
+   verifyUser
   } from "./publicActions"
 
 

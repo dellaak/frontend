@@ -23,6 +23,7 @@ export const RegisterForm = () => {
   const [userType, setUserType] = useState("personal");
   const [takenName, setTakenName] = useState(false);
   const [takenEmail, setTakenEmail] = useState(false);
+  const [failed,setFailed] =useState(false)
   const authUser = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -115,6 +116,7 @@ setTakenName(false)
   useEffect(() => {
    
     if (authUser.error) {
+      if(authUser.error.message){
       if (authUser.error.message.includes("Email")) {
         setTakenEmail(true);
       } else if(authUser.error.message.includes("Username")){
@@ -123,7 +125,10 @@ setTakenName(false)
         setTakenEmail(false);
         setTakenName(false)
       }
+    }else{
+setFailed(true)
     }
+  }
   }, [authUser]);
 
   return (
@@ -149,7 +154,17 @@ setTakenName(false)
           </div>
         )}
 
-        {!authUser.userCreated && !authUser.loading &&  <>
+{failed && (
+          <div className="success-wrap">
+            <p>
+              Your account is created! 
+            </p>
+            <p>BUT we failed to send activation email to <b>{email}</b></p>
+            <p> Please contact support for activation: <b>info@sharemysocials.com</b></p>
+          </div>
+        )}
+
+        {!authUser.userCreated && !authUser.loading && !failed && <>
           
             <h2>Register now to share your socials accounts</h2>
             <Grid item md={12} xs={12}>
@@ -222,7 +237,7 @@ setTakenName(false)
               <Grid item md={5} xs={10}>
                 <TextField
                   className="text-field"
-                  label="Email"
+                  label="Company email"
                   variant="outlined"
                   error={emailErr}
                   onChange={(e) => {

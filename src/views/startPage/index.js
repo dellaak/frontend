@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react";
 
-import { Grid, Button, TextField, Container } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import "./style.scss";
 import { RegisterForm } from "../../components/registerForm";
 import { StartPageSecond } from "../startPageSecond";
 import { Navbar } from "../../components/navbar";
 import authorizationService from "../../services/authService";
+import {useSelector,useDispatch} from "react-redux"
+import * as actions from "../../store/actions/rootActions"
 
 export const StartPage = () => {
- 
+ const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+const [userName,setUserName] = useState(null)
+
+
+useEffect(() => {
+  dispatch(actions.getPublicUser());
+}, [])
+
+useEffect(() => {
+  if(user.userData){
+setUserName(user.userData.username)
+  }
+}, [user])
+
   return (
     <>
       <div className="banner">
@@ -26,7 +42,8 @@ export const StartPage = () => {
             
           </Grid>
           <Grid container item md={5} justify="center" alignItems="center">
-        {authorizationService.isAuthenticated() ? <p>Your public url is: <a>sharemysocials.com/mira</a></p>:<RegisterForm /> } 
+        {authorizationService.isAuthenticated() ?<div className="pulic-url-wrap"> <p>Your public url is:</p>
+  {userName && <a href={`https://www.sharemysocials.com/${userName}`}>sharemysocials.com/{userName}</a>}</div>:<RegisterForm /> } 
           </Grid>
          
         

@@ -252,9 +252,9 @@ export const ProfilePage = () => {
                   {socialList && socialList.length === 0 && (
                     <Grid item md={12}>
                       <div className="no-socials-text">
-                        <h3>No socials....</h3>
+                        <h3>No socials... :(</h3>
                         <p>
-                          Click the edit profile button and add your socials!
+                          Click the edit profile button and start editing your profile!
                         </p>
                       </div>
                     </Grid>

@@ -69,7 +69,7 @@ export const login = (email, password) => {
         dispatch(checkAuthTimeout(expirationTime));
       } else {
         dispatch(loginFail(response.message));
-        dispatch(actions.showNotification('Failed to login: Invalid credentials', "error"));
+        dispatch(actions.showNotification('Failed to login: '+response.data.message, "error"));
       }
     });
   };
