@@ -20,10 +20,10 @@ export const Social = ({ social, username, id, index, moveCard, editMode }) => {
   const ref = useRef(null);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [openShow, setOpenShow] = useState(false);
   const [selectedSocial, setSelectedSocial] = useState(null);
-  const [newSocialVal, setNewSocialVal] = useState(
-    social && social.url ? social.url : social.username
-  );
+  const [newSocialVal, setNewSocialVal] = useState("");
+
   const [, drop] = useDrop({
     accept: ItemTypes.BOX,
     hover(item, monitor) {
@@ -84,6 +84,18 @@ export const Social = ({ social, username, id, index, moveCard, editMode }) => {
     }
   }, [editMode]);
 
+  useEffect(() => {
+    if (social.url) {
+      setNewSocialVal(social.url);
+    } else if (social.socialid) {
+      setNewSocialVal(social.socialid);
+    } else if (social.username) {
+      setNewSocialVal(social.username);
+    } else if (social.phone) {
+      setNewSocialVal(social.phone);
+    }
+  }, [social]);
+
   const deleteSocial = () => {
     dispatch(actions.deleteSocialItem(social.title, username));
 
@@ -93,12 +105,14 @@ export const Social = ({ social, username, id, index, moveCard, editMode }) => {
   const editSave = () => {
     const data = {
       title: social.title,
-      username: !social.url ? newSocialVal: null ,
+      username: social.username ? newSocialVal : null,
       url: social.url ? newSocialVal : null,
+      phone: social.phone ? newSocialVal : null,
+      socialid: social.socialid ? newSocialVal : null,
     };
 
     dispatch(actions.updateSocialItem(data));
-    dispatch(actions.getPublicUser())
+    dispatch(actions.getPublicUser());
     setOpenEdit(false);
   };
 
@@ -114,16 +128,24 @@ export const Social = ({ social, username, id, index, moveCard, editMode }) => {
     setOpenEdit(false);
   };
 
+  const handleShowClose = () => {
+    setOpenShow(false);
+  };
+
   const handleClose = () => {
     setOpenDelete(false);
   };
-  useEffect(() => {}, []);
+
+  const getSocialLink = (link) =>{
+let newlink =  link.replace(/(^\w+:|^)\/\//, "");
+return newlink
+  }
 
   return (
     <>
       <Grid
         item
-        md={3}
+        md={2}
         xs={6}
         className={editMode ? "active-grid-social" : "social-wrapper"}
         edit={editMode ? 1 : undefined}
@@ -157,12 +179,50 @@ export const Social = ({ social, username, id, index, moveCard, editMode }) => {
             />
           )}
         </div>
-        {!editMode && (
-          <a className="social-link" href={social.link} target="_blank">
-            <img className="social-icon" src={social.icon} alt="logo" />
+        {!editMode && !social.notExternal && (
+          <a
+            className="social-link"
+            href={social.link ? social.link : ""}
+            target="_blank"
+          >
+            <img className="social-icon-link" src={social.icon} alt="logo" />
           </a>
         )}
 
+        {!editMode && social.notExternal && (
+          <img
+            className="social-icon"
+            src={social.icon}
+            alt="logo"
+            onClick={() => {
+              setOpenShow(true);
+            }}
+          />
+        )}
+        {/*SHOW*/}
+        <Dialog
+          open={openShow}
+          onClose={handleShowClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {social && social.title}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Add me on {social && social.title}:{" "}
+              <b>{social.phone ? social.phone : social.socialid}</b>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleShowClose} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        {/*Delete */}
         <Dialog
           open={openDelete}
           onClose={handleClose}
@@ -205,7 +265,9 @@ export const Social = ({ social, username, id, index, moveCard, editMode }) => {
                 value={newSocialVal}
                 className="edit-field"
                 label={social.url ? "Social url" : "Social name"}
-                onChange={(e)=>{setNewSocialVal(e.target.value)}}
+                onChange={(e) => {
+                  setNewSocialVal(e.target.value);
+                }}
               />
             </DialogContent>
             <DialogActions>

@@ -1,0 +1,49 @@
+
+.download-text-wrap{
+    display: flex;
+    padding-top: 100px;
+    font-family: "Baloo Tamma 2", cursive;
+    h2{
+      
+        color:white;
+        
+        font-size: 2rem;
+    }
+
+    p{
+        color: white;
+        font-size: 1.3rem;
+    }
+    flex-direction: column;
+}
+
+
+.download-wrap{
+    display: flex;
+    margin-top: 50px;
+
+}
+
+.logo-dl{
+    height: 100px;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.black-logo{
+    background-color: #fefefe;
+  
+}
+
+.wrap-box{
+    p{
+        color: white;
+    }
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: auto;
+    button{
+        width: 100px;
+    }
+}

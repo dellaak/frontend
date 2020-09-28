@@ -22,7 +22,7 @@ if(userLoggedIn && userLoggedIn.error){
   }, [userLoggedIn])
 
   const loginUser = () => {
-    dispatch(actions.login(userName.trim(), password.trim()));
+    dispatch(actions.login(userName.trim().toLowerCase(), password.trim()));
   };
 
   const handleKeyPress = (event) => {

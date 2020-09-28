@@ -9,6 +9,9 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions/rootActions";
 import socialsJSON from "../profilePage/socialsJSON";
+import { Helmet } from "react-helmet";
+import { Highlights } from "../../components/highlights";
+import { PublicHighlight } from "./PublicHighlight";
 
 export const PublicPage = () => {
   const dispatch = useDispatch();
@@ -28,7 +31,6 @@ export const PublicPage = () => {
 
   useEffect(() => {
     setSelectedUser(publicUser.publicList);
-
     setSocialList(publicUser.publicList.socialsList);
   }, [publicUser.publicList]);
 
@@ -47,7 +49,7 @@ export const PublicPage = () => {
       }
     });
     return (
-      <PublicSocial social={social} index={index} key={index}></PublicSocial>
+      <PublicSocial social={social} index={index} key={index} username={publicUser.publicList.username}></PublicSocial>
     );
   };
 
@@ -59,18 +61,33 @@ export const PublicPage = () => {
 
   return (
     <>
+   {selectedUser && socialList && <Helmet>
+				<link rel="canonical" href={`https://www.sharemysocials.com/${selectedUser.username.toLowerCase()}`} />
+				<title>
+					ShareMySocials - {selectedUser.username}
+          </title>
+
+				<meta name="description" content={`${selectedUser.username} have gathered all their social medias at one place. U can do the same!`}/>
+				<meta
+					name="keywords"
+					content={`${selectedUser.username},social medias, socials, active, instagram,facebook,tiktok.spotify,sharemysocials`}				/>
+
+			</Helmet >}
+
+  
       {socialList && selectedUser && (
         <div className="profile-wrapper">
           <Container maxWidth="md">
             <Grid className="wrapper-bottom" container>
               <Grid item md={12} xs={12}>
+                
                 <div className="text-wrap-profile">
                 
                   <h2>@{selectedUser.username} </h2>
 
                   {selectedUser.showEmail && <div className="email-wrap">
-                    <EmailIcon />
-                    <a href={`mailto:${selectedUser.email}`}>{selectedUser.email} </a>
+                   
+                    <a href={`mailto:${selectedUser.email}`}> <EmailIcon className="email-icon-link"/> </a>
                   </div>}
                   <Button
                   className="show-button"
@@ -84,6 +101,9 @@ export const PublicPage = () => {
                   <img src={publicUser.qrcode} className="qr-public-img" />
                   </Collapse>
                 </div>
+
+
+                
               </Grid>
 
               <Grid item xs={12}>
@@ -92,17 +112,33 @@ export const PublicPage = () => {
                 </div>
               </Grid>
 
+              <Grid item md={6} xs={11} className="highlight-window-wrap">
+              <div style={{ display: "flex" }}>
+                    {selectedUser.highlights && (
+                      <PublicHighlight
+                        list={selectedUser && selectedUser.highlights}
+                   
+                      />
+                    )}
+                  </div>
+                  </Grid>
               <Grid container>
+              {socialList.length===0 && <><h3 className="no-socials-text">{selectedUser.username} don't have any socials added :(</h3></>}
                 {socialList &&
                   socialList.length > 0 &&
                   socialList.map((social, i) => renderSocials(social, i))}
               </Grid>
+              
             </Grid>
-      
+            
           </Container>
+          <a href="https://www.sharemysocials.com">
+          <img src="/images/navlogo.svg" className="profile-logo" />
+          </a>
         </div>
       )}
       {noUser && <Redirect to="/404" />}
+     
     </>
   );
 };

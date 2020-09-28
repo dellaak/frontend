@@ -8,6 +8,9 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       url("/images/hero.jpeg") !important;
     background-size: cover !important;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .settings-wrap {
@@ -19,7 +22,7 @@
     color: white;
     small {
       font-family: "Baloo Tamma 2", cursive;
-      font-size: 1rem;
+      font-size: 12px
     }
     cursor: pointer;
   
@@ -104,7 +107,7 @@
   }
 
   .qr-public-img{
-    width: 120px;
+    width: 110px;
     border-radius: 9px;
   }
 
@@ -112,4 +115,21 @@
     background-color: white !important;
     color: white;
     margin: 15px 0 !important; 
+  }
+
+
+  .no-socials-text{
+    text-shadow: 1px 2px 3px #666;
+    font-family: "Baloo Tamma 2", cursive;
+    color: white;
+    margin: 0 auto;
+  }
+
+  .bottom-img-logo{
+    height: 100px;
+ display: flex;
+  }
+
+  .profile-logo {
+    height: 100px;
   }

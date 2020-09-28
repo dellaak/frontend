@@ -19,13 +19,24 @@ const authorizationService = {
         
       });
   },
+  signupcompany: (data,callback)=> {
+    Axios.post(API.auth.signupcompany, data)
+      .then(response => {
+        callback(null,response)
+      })
+      .catch(error => {
+      
+          callback(error.response.data,null);
+      
+        
+      });
+  },
   login: (email, password, callback) => {
     Axios.post(API.auth.login, {
       email: email,
       password: password
     })
       .then(response => {
-      
         const expirationDate = new Date(response.data.message.expires);
         sessionStorage.setItem(SESSION_TOKEN_KEY, response.data.message.token);
         sessionStorage.setItem(SESSION_TOKEN_EXPIRATION_DATE_KEY, expirationDate);

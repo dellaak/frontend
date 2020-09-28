@@ -25,3 +25,8 @@
   border-radius: 50%;
 }
 
+@media screen and (max-width: 550px) {
+  .navbar-logo {
+    width: 150px;
+  }
+}

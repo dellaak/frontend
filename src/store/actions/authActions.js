@@ -22,6 +22,26 @@ export const createUserFail = (error) => {
   };
 };
 
+export const createCompanyStart = () => {
+  return {
+    type: actionTypes.CREATE_COMPANY_START,
+  };
+};
+
+export const createCompanySuccess = (user) => {
+  return {
+    type: actionTypes.CREATE_COMPANY_SUCCESS,
+    createdUser: user,
+  };
+};
+
+export const createCompanyFail = (error) => {
+  return {
+    type: actionTypes.CREATE_COMPANY_FAIL,
+    error: error,
+  };
+};
+
 export const loginStart = () => {
   return {
     type: actionTypes.LOGIN_START,
@@ -81,8 +101,27 @@ export const createUser = (data) => {
     authorizationService.signup(data, (err,res) => {
       if (!err) {
         dispatch(createUserSuccess(res));
+        dispatch(actions.showNotification('User successfully created!', "success"));
       } else {
         dispatch(createUserFail(err));
+        dispatch(actions.showNotification('Failed to create user: '+err.message, "error"));
+      }
+    });
+  };
+};
+
+
+export const createCompany = (data) => {
+  return (dispatch) => {
+    dispatch(createCompanyStart());
+    authorizationService.signupcompany(data, (err,res) => {
+  
+      if (!err) {
+        dispatch(createCompanySuccess(res));
+        dispatch(actions.showNotification('User successfully created!', "success"));
+      } else {
+        dispatch(actions.showNotification('Failed to create user: '+err.message, "error"));
+        dispatch(createCompanyFail(err));
       }
     });
   };

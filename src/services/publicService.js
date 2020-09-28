@@ -30,7 +30,7 @@ const publicService = {
  verify: (token,callback) => {
     Axios.post(API.public.verify.replace(":activationtoken", token))
     .then(response => {
-      console.log(response)
+
       callback(response);
     })
     .catch(error => {

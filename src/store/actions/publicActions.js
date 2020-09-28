@@ -1,5 +1,6 @@
 import publicService from "../../services/publicService";
 import * as actionTypes from "./types";
+import * as actions from "./rootActions"
 
 export const getPublicSocialListSuccess = (socials) => ({
   type: actionTypes.GET_PUBLIC_SOCIALS_LIST_SUCCESS,
@@ -61,8 +62,10 @@ export const verifyUser = (token) => {
     publicService.verify(token, (response) => {
       if (response.status === 200) {
         dispatch(verifyUserSuccess(response.data.message));
+        dispatch(actions.showNotification('User successfully activated!', "success"));
       } else {
         dispatch(verifyUserFailure(response));
+        dispatch(actions.showNotification('Failed to activate user!', "error"));
       }
     });
   };

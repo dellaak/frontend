@@ -1,18 +1,29 @@
 .social-icon {
-  height: 80%;
+  height: 70%;
   cursor: pointer;
 }
-.social-link{
-  height: 100%;
 
+
+.social-icon-link{
+  vertical-align: bottom;
+  height: 100%;
+  width: auto;
+}
+
+.social-link{
+  display: inline-block;
+  height: 70px;
+
+  width: 70px;
 }
 
 
 .social-icon-active {
-  height: 80%;
+  height: 70%;
   cursor: pointer;
   border-radius: 50%;
   animation: shake 1s ease infinite;
+  margin-bottom: 17px;
 
 }
 .img-div{
@@ -32,12 +43,17 @@
   small {
     padding-top: 3px;
     color: white !important;
-    font-size:16px;
+    font-size:12px;
   }
 }
 
+.req-url{
+  color: white;
+  font-size: 0.8rem !important;
+}
+
 .delete-edit-icon{
-  color: lightsalmon;
+  color: #d11a2a;
   font-size: 2.5rem !important;
   margin: 10px;
   cursor: pointer;

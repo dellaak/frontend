@@ -7,7 +7,7 @@ const initialState = {
   loading: false,
   error: null,
   userCreated: false,
-  loginFail:null
+  loginFail: null,
 };
 
 const createUserStart = (state, action) => {
@@ -18,11 +18,27 @@ const createUserSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
     error: null,
-    userCreated: action.createdUser.data.status===200 && true,
+    userCreated: action.createdUser.data.status === 200 && true,
   });
 };
 
 const createUserFail = (state, action) => {
+  return updateObject(state, { loading: false, error: action.error });
+};
+
+const createCompanyStart = (state, action) => {
+  return updateObject(state, { loading: true, error: null });
+};
+
+const createCompanySuccess = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: null,
+    userCreated: action.createdUser.data.status === 200 && true,
+  });
+};
+
+const createCompanyFail = (state, action) => {
   return updateObject(state, { loading: false, error: action.error });
 };
 
@@ -56,6 +72,15 @@ const authReducer = (state = initialState, action) => {
 
     case actionTypes.CREATE_USER_FAIL:
       return createUserFail(state, action);
+
+    case actionTypes.CREATE_COMPANY_START:
+      return createCompanyStart(state, action);
+
+    case actionTypes.CREATE_COMPANY_SUCCESS:
+      return createCompanySuccess(state, action);
+
+    case actionTypes.CREATE_COMPANY_FAIL:
+      return createCompanyFail(state, action);
 
     case actionTypes.LOGIN_START:
       return loginStart(state, action);

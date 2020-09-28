@@ -8,27 +8,57 @@ import FormLabel from "@material-ui/core/FormLabel";
 import CheckBox from "@material-ui/core/CheckBox";
 import * as actions from "../../store/actions/rootActions";
 import { useDispatch, useSelector } from "react-redux";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import "./style.scss";
+import { TermsPage } from "../../views/terms";
 
 export const RegisterForm = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [legalname, setLegalName] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [userErr, setUserErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
+  const [legalErr, setLegalErr] = useState(false);
   const [rePasswordErr, setRePasswordErr] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
+  const [disableCompanyButton, setDisableCompanyButton] = useState(true);
   const [userType, setUserType] = useState("personal");
   const [takenName, setTakenName] = useState(false);
   const [takenEmail, setTakenEmail] = useState(false);
-  const [failed,setFailed] =useState(false)
+  const [takenLegal, setTakenLegal] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [honeySpot, setHoneySpot] = useState("");
   const authUser = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [openTerms, setOpenTerms] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const handleChange = (event) => {
     setUserType(event.target.value);
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setEmail("");
+    setUserName("");
+    setPassword("");
+    setLegalName("");
+    setRePassword("");
+    setUserErr(false);
+    setPasswordErr(false);
+    setRePasswordErr(false);
+    setEmailErr(false);
+    setTakenName(false);
+    setTakenLegal(false);
+    setTakenEmail(false);
+    setLegalErr(false);
+    setAcceptTerms(false);
   };
 
   useEffect(() => {
@@ -39,7 +69,9 @@ export const RegisterForm = () => {
       !emailErr &&
       password &&
       !passwordErr &&
-      rePassword === password
+      rePassword === password &&
+      acceptTerms === true &&
+      !honeySpot
     ) {
       setDisableButton(false);
     } else {
@@ -54,6 +86,41 @@ export const RegisterForm = () => {
     rePasswordErr,
     password,
     rePassword,
+    acceptTerms,
+    honeySpot,
+  ]);
+
+  useEffect(() => {
+    if (
+      userName &&
+      !userErr &&
+      email &&
+      legalname &&
+      !legalErr &&
+      !emailErr &&
+      password &&
+      !passwordErr &&
+      rePassword === password &&
+      acceptTerms === true &&
+      !honeySpot
+    ) {
+      setDisableCompanyButton(false);
+    } else {
+      setDisableCompanyButton(true);
+    }
+  }, [
+    userName,
+    userErr,
+    email,
+    legalname,
+    legalErr,
+    emailErr,
+    passwordErr,
+    rePasswordErr,
+    password,
+    rePassword,
+    acceptTerms,
+    honeySpot,
   ]);
 
   const validateUserName = (val) => {
@@ -64,8 +131,20 @@ export const RegisterForm = () => {
     } else {
       setUserErr(false);
     }
-setTakenName(false)
+    setTakenName(false);
     setUserName(val.toLowerCase().replace(/\s+/g, ""));
+  };
+
+  const validateLegalName = (val) => {
+    val.trim();
+
+    if (val.length < 3) {
+      setLegalErr(true);
+    } else {
+      setLegalErr(false);
+    }
+    setTakenName(false);
+    setLegalName(val.toLowerCase().replace(/\s+/g, ""));
   };
 
   const validateEmail = (val) => {
@@ -107,36 +186,54 @@ setTakenName(false)
       username: userName,
       password: password,
       email,
-      type: userType,
     };
 
     dispatch(actions.createUser(data));
   };
 
+  const registerCompany = () => {
+    setTakenName(false);
+    setTakenEmail(false);
+    const data = {
+      username: userName,
+      email: email,
+      password: password,
+      legalname: legalname,
+    };
+
+    dispatch(actions.createCompany(data));
+  };
+
   useEffect(() => {
-   
     if (authUser.error) {
-      if(authUser.error.message){
-      if (authUser.error.message.includes("Email")) {
-        setTakenEmail(true);
-      } else if(authUser.error.message.includes("Username")){
-        setTakenName(true);
-      }else{
-        setTakenEmail(false);
-        setTakenName(false)
+      if (authUser.error.message) {
+        if (authUser.error.message.includes("Email")) {
+          resetForm();
+          setTakenEmail(true);
+        } else if (authUser.error.message.includes("Username")) {
+          resetForm();
+          setTakenName(true);
+        } else if (authUser.error.message.includes("Company")) {
+          resetForm();
+          setTakenLegal(true);
+        } else {
+          setTakenLegal(false);
+          setTakenEmail(false);
+          setTakenName(false);
+        }
+      } else {
+        setFailed(true);
       }
-    }else{
-setFailed(true)
     }
-  }
   }, [authUser]);
+
+  const handleClose = () => {
+    setOpenTerms(false);
+  };
 
   return (
     <>
-
-
       <Grid container className="reg-wrapper" justify="space-around">
-     
         {authUser.userCreated && (
           <div className="success-wrap">
             <div class="success-checkmark">
@@ -154,18 +251,22 @@ setFailed(true)
           </div>
         )}
 
-{failed && (
+        {failed && (
           <div className="success-wrap">
+            <p>Your account is created!</p>
             <p>
-              Your account is created! 
+              BUT we failed to send activation email to <b>{email}</b>
             </p>
-            <p>BUT we failed to send activation email to <b>{email}</b></p>
-            <p> Please contact support for activation: <b>info@sharemysocials.com</b></p>
+            <p>
+              {" "}
+              Please contact support for activation:{" "}
+              <b>info@sharemysocials.com</b>
+            </p>
           </div>
         )}
 
-        {!authUser.userCreated && !authUser.loading && !failed && <>
-          
+        {!authUser.userCreated && !authUser.loading && !failed && (
+          <>
             <h2>Register now to share your socials accounts</h2>
             <Grid item md={12} xs={12}>
               <FormControl component="fieldset" className="radio-fieldset">
@@ -194,8 +295,8 @@ setFailed(true)
             </Grid>
             {userType === "company" && (
               <p>
-                All company registrations will be reviewed manually and need to
-                be verified
+                Notice: In some cases verification of the company will be
+                necessary. We'll contact you if needed.
               </p>
             )}
             {/* COMPANY */}
@@ -205,12 +306,11 @@ setFailed(true)
                   className="text-field"
                   label="Company username"
                   variant="outlined"
+                  required
                   value={userName}
-                  error={userErr}
+                  error={userErr || takenName}
                   helperText={
-                    userErr
-                      ? "Minimum 3 characters"
-                      : "This name is shown to public"
+                    !takenName ? "Minimum 3 characters" : "Username exists"
                   }
                   onChange={(e) => {
                     validateUserName(e.target.value);
@@ -224,11 +324,12 @@ setFailed(true)
                   className="text-field"
                   label="Company legal name"
                   variant="outlined"
-                  value={userName}
-                  error={userErr}
-                  helperText={userErr && "Minimum 3 characters"}
+                  required
+                  value={legalname}
+                  error={legalErr || takenLegal}
+                  helperText={!takenLegal ? "" : "Company exists..?"}
                   onChange={(e) => {
-                    validateUserName(e.target.value);
+                    validateLegalName(e.target.value);
                   }}
                 />
               </Grid>
@@ -239,7 +340,13 @@ setFailed(true)
                   className="text-field"
                   label="Company email"
                   variant="outlined"
-                  error={emailErr}
+                  required
+                  error={emailErr || takenEmail}
+                  helperText={
+                    !takenEmail
+                      ? "We'll send an activation link to this email"
+                      : "Email exists"
+                  }
                   onChange={(e) => {
                     validateEmail(e.target.value);
                   }}
@@ -253,12 +360,11 @@ setFailed(true)
                   className="text-field"
                   label="Username"
                   variant="outlined"
+                  required
                   value={userName}
                   error={userErr || takenName}
                   helperText={
-                    !takenName
-                      ? "Minimum 3 characters"
-                      : "Username exists"
+                    !takenName ? "Minimum 3 characters" : "Username exists"
                   }
                   onChange={(e) => {
                     validateUserName(e.target.value);
@@ -271,8 +377,14 @@ setFailed(true)
                 <TextField
                   className="text-field"
                   label="Email"
+                  required
                   variant="outlined"
                   error={emailErr || takenEmail}
+                  helperText={
+                    !takenEmail
+                      ? "We'll send an activation link to this email"
+                      : "Email exists"
+                  }
                   onChange={(e) => {
                     validateEmail(e.target.value);
                   }}
@@ -284,6 +396,7 @@ setFailed(true)
                 className="text-field"
                 label="Password"
                 type="password"
+                required
                 variant="outlined"
                 error={passwordErr}
                 helperText={passwordErr && "Minimum 6 characters and 1 number"}
@@ -297,6 +410,7 @@ setFailed(true)
                 type="password"
                 className="text-field"
                 label="Repeat Password"
+                required
                 variant="outlined"
                 onChange={(e) => {
                   validateRePassword(e.target.value);
@@ -305,23 +419,91 @@ setFailed(true)
                 helperText={rePasswordErr && "No match on password"}
               />
             </Grid>
-            <Grid item md={12}>
-              <CheckBox />
-              <small> I accept the terms and conditions</small>
+            <Grid container item md={12} justify="flex-end" alignItems="center">
+              <div id="honeypotsome-div">
+                If you see this, leave this form field blank
+                <input
+                  type="text"
+                  name="body"
+                  value={honeySpot}
+                  onChange={(e) => {
+                    setHoneySpot(e.target.value);
+                  }}
+                />
+              </div>
+              <CheckBox
+                checked={acceptTerms}
+                onClick={() => {
+                  setAcceptTerms(!acceptTerms);
+                }}
+              />
+              <small>
+                {" "}
+                I accept the{" "}
+                <span
+                  className="terms-link"
+                  onClick={() => {
+                    setOpenTerms(true);
+                  }}
+                >
+                  Terms and Conditions
+                </span>
+              </small>
             </Grid>
             <Grid item md={12} className="button-wrap">
-              <Button
-                className={disableButton ? "diasble-button" : "create-button"}
-                onClick={registerUser}
-                disabled={disableButton}
-              >
-                Create account
-              </Button>
+              {userType === "personal" && (
+                <Button
+                  className={disableButton ? "diasble-button" : "create-button"}
+                  onClick={registerUser}
+                  disabled={disableButton}
+                >
+                  Create account
+                </Button>
+              )}
+              {userType === "company" && (
+                <Button
+                  className={
+                    disableCompanyButton ? "diasble-button" : "create-button"
+                  }
+                  onClick={registerCompany}
+                  disabled={disableCompanyButton}
+                >
+                  Create account
+                </Button>
+              )}
             </Grid>
           </>
-        }
-         {authUser.loading && <div className="loading-signup"><div className="lds-facebook"><div></div><div></div><div></div></div><p>We are creating your account...</p> </div>}
+        )}
+        {authUser.loading && (
+          <div className="loading-signup">
+            <div className="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <p>We are creating your account...</p>{" "}
+          </div>
+        )}
       </Grid>
+
+      <Dialog
+        open={openTerms}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Terms and Conditions"}
+        </DialogTitle>
+        <DialogContent>
+          <TermsPage />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

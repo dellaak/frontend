@@ -3,28 +3,13 @@ import * as actionTypes from "../actions/types";
 import { updateObject } from "../../utils/utils";
 
 const initialState = {
-socialList:[],
 social:null,
 loading: true,
 error: null,
 isSocialCreated:false
 };
 
-const getSocialList = (state, action) => {
-  return updateObject(state, { loading: true, error: null });
-};
 
-const getSocialListSuccess = (state, action) => {
-  return updateObject(state, { loading: false, error: null, socialList: action.socialList });
-};
-
-const getSocialListFailure = (state, action) => {
-  return updateObject(state, {
-    loading: false,
-    error: action.error,
-    socialList: []
-  });
-};
 
 const deleteSocial = (state, action) => {
   return updateObject(state, { loading: true, error: null });
@@ -79,14 +64,6 @@ const getSocialFailure = (state, action) => {
 
 const socialsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GET_SOCIAL:
-      return getSocialList(state, action);
-
-    case actionTypes.GET_SOCIALS_LIST_SUCCESS:
-      return getSocialListSuccess(state, action);
-
-    case actionTypes.GET_SOCIALS_LIST_FAILURE:
-      return getSocialListFailure(state, action);
 
     case actionTypes.DELETE_SOCIAL:
       return deleteSocial(state, action);

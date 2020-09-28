@@ -1,0 +1,109 @@
+.sizer {
+  display: flex;
+  flex: 1;
+  height: 250px !important;
+  width: 100% !important;
+}
+
+.wrap-window-empty {
+  flex: 1;
+  position: relative;
+  width: 320px;
+  height: 200px;
+  //  overflow: hidden;
+  background: #182d51b5;
+  border-radius: 9px;
+  margin-bottom: 30px;
+
+
+  .text-empty-hs{
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    p {
+      font-family: "Baloo Tamma 2", cursive;
+      color: white;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    small{
+      font-family: "Baloo Tamma 2", cursive;
+      color: white;
+    }
+  }
+ 
+}
+
+
+.list-wrap-phone{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+}
+
+.wrap-window {
+  flex: 1;
+  position: relative;
+  width: 320px;
+  height: 300px;
+  //  overflow: hidden;
+  border-radius: 9px;
+  margin-bottom: 30px;
+}
+
+.single-highlight-row {
+  :hover {
+    background-color: #05164f84 !important;
+  }
+
+  flex: 1;
+text-decoration: none;
+color: white;
+display: flex;
+align-items: center;
+}
+
+.List {
+  background: #182d51b5;;
+  border-radius: 9px;
+}
+
+.highlight-icon {
+  border-radius: 50%;
+  width: 40px;
+  margin-right: 10px;
+}
+
+.fixed-top-window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #fbb542;
+  padding: 5px;
+  background-color: #182d51b5;;
+  .hot-icon {
+    font-size: 2rem;
+    color: #fbb542;
+  }
+
+  span {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: white;
+  }
+}
+
+
+.delete-but-list{
+  background-color: #d11a2a !important;
+
+  svg{
+    color: #fff;
+    font-size: 2rem;
+  }
+}

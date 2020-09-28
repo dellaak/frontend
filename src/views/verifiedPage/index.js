@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { TopProfile } from "../../components/topProfile";
-import { Grid, Container, Button, Collapse } from "@material-ui/core/";
+import React, {useEffect } from "react";
+import {Container, Button} from "@material-ui/core/";
 import "./style.scss";
-import { useParams, Redirect } from "react-router-dom";
-import EmailIcon from "@material-ui/icons/Email";
-import PhoneIcon from "@material-ui/icons/Phone";
+import { useParams } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions/rootActions";
-import socialsJSON from "../profilePage/socialsJSON";
+
 
 export const VerifiedPage = () => {
   const dispatch = useDispatch();
@@ -31,7 +29,7 @@ export const VerifiedPage = () => {
           {publicUser.verified && 
           <>
           <div className="verify-wrap">
-           <img src="/images/navlogo.svg" className="navbar-logo" />
+           <img src="/images/navlogo.svg" className="navbar-logo" alt="sharemysocials-logo"/>
      <p>Welcome!</p>
           <p>Account verified and activated!</p>
           <p>Click the button to login!</p>

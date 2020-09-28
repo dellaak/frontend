@@ -42,19 +42,6 @@
   }
 }
 
-.img-wrap {
-  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-  background-image: url("/images/bannerwhite.svg");
-  flex: 1;
-  /* Set a specific height */
-  height: 300px;
-
-  /* Position and center the image to scale nicely on all screens */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: relative;
-}
 
 .icon-scroll,
 .icon-scroll::before {
@@ -96,7 +83,11 @@
   color: black;
   background:white;
   margin: 0;
-  padding: 40px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .text-field-login {
@@ -141,23 +132,23 @@ a{
 }
 }
 
-// .login-button {
-//   width: 100% !important;
-// }
 
-// .login-grid {
-//   width: 100% !important;
+.textlogo{
+  width: 400px;
+  max-width: 100%;
+  margin-left: 10px;
+  padding-top: 5px;
+}
 
-// @media screen and (max-width: 1000px) {
-//   .wave2 {
-//     display: none;
-//   }
 
-//   .wave {
-//     display: none;
-//   }
 
-//   .login-button {
-//     margin-top: 20px !important;
-//   }
-// }
+@media screen and (max-width: 950px) {
+  .icon-scroll {
+    display: none;
+  }
+}
+
+.a-tag-example{
+  text-decoration: none;
+  color: lightskyblue;
+}

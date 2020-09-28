@@ -10,6 +10,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import socials from "../../views/profilePage/socialsJSON";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import PhoneIcon from "@material-ui/icons/Phone";
+import PersonIcon from "@material-ui/icons/Person";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/rootActions";
 import "./style.scss";
@@ -19,24 +22,37 @@ export const AddNewSocial = () => {
   const [open, setOpen] = useState(false);
   const [selectedSocial, setSelectedSocial] = useState(null);
   const [socialList, setSocialList] = useState(null);
+  const [savingUrl, setSavingUrl] = useState("");
   const [userVal, setUserVal] = useState("");
   const userData = useSelector((state) => state.user);
 
+  //errors
+  const [userErr, setUserErr] = useState(false);
+  const [phoneErr, setPhoneErr] = useState(false);
+  const [urlErr, setUrlErr] = useState(false);
+
   useEffect(() => {
-   let uD = userData.userData
+    let uD = userData.userData;
     if (uD.socialsList.length === 0) {
       setSocialList(socials.socials);
     } else {
-     
       const x = uD.socialsList.map((i) => {
         return i.title;
       });
-      const y = socials.socials.filter((social) => !x.includes(social.title));
+      let y = socials.socials.filter((social) => !x.includes(social.title));
+
+      y = y.sort(function (a, b) {
+        if (a.title < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      });
       setSocialList(y);
     }
   }, [userData]);
-
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,18 +65,72 @@ export const AddNewSocial = () => {
   };
 
   const addSocial = () => {
-    let social = selectedSocial
-    dispatch(actions.createSocialItem(userVal, selectedSocial));
-    dispatch(actions.getPublicUser())
+    if (selectedSocial.title === "TikTok") {
+      if (userVal.charAt(0) === "@") {
+        let tiktok = userVal.replace(/^@+/i, "");
+        dispatch(
+          actions.createSocialItem(tiktok, selectedSocial, "username")
+        );
+        setUrlErr(false);
+        dispatch(actions.getPublicUser());
+        return  handleClose();
+      }
+   
+    }
+
+    if (selectedSocial.url) {
+      if (is_url(savingUrl)) {
+        dispatch(actions.createSocialItem(savingUrl, selectedSocial, "url"));
+      } else {
+        return setUrlErr(true);
+      }
+    } else if (selectedSocial.userName) {
+      dispatch(actions.createSocialItem(userVal, selectedSocial, "username"));
+    } else if (selectedSocial.phone) {
+      dispatch(actions.createSocialItem(userVal, selectedSocial, "phone"));
+    } else if (selectedSocial.socialid) {
+      dispatch(actions.createSocialItem(userVal, selectedSocial, "socialid"));
+    }
+    setUrlErr(false);
+    dispatch(actions.getPublicUser());
     handleClose();
   };
 
-//   const isUrl = (s)=> {
-//     var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-//   if(!regexp.test(s)){
-//     return true
-//   }
-//  }
+  const handleUrl = (val) => {
+    val = val.replace(/(^\w+:|^)\/\//, "");
+    setUserVal(val);
+    setSavingUrl("https://" + val);
+  };
+
+  const is_url = (str) => {
+    let regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+    if (regexp.test(str)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handlePhone = (val) => {
+    let reg = /^[0-9,+-]*$/gm;
+    if (val.match(reg)) {
+      setUserVal(val);
+      setPhoneErr(false);
+    } else {
+      setPhoneErr(true);
+    }
+  };
+
+  const handleUsername = (val) => {
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    if (!urlRegex.test(val)) {
+      val.trim();
+      setUserVal(val.replace(/\s/g, ""));
+      setUserErr(false);
+    } else {
+      setUserErr(true);
+    }
+  };
 
   return (
     <>
@@ -118,8 +188,10 @@ export const AddNewSocial = () => {
                   autoFocus
                   margin="dense"
                   value={userVal}
+                  error={userErr}
+                  helperText={userErr && "Cannot be an url"}
                   onChange={(e) => {
-                    setUserVal(e.target.value);
+                    handleUsername(e.target.value);
                   }}
                   label={
                     selectedSocial && selectedSocial.title + " " + "username"
@@ -134,10 +206,63 @@ export const AddNewSocial = () => {
                   autoFocus
                   margin="dense"
                   value={userVal}
+                  error={urlErr}
+                  helperText={urlErr && "Must be an url"}
+                  onChange={(e) => {
+                    handleUrl(e.target.value);
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <small>https://</small>
+                      </InputAdornment>
+                    ),
+                  }}
+                  label={selectedSocial && selectedSocial.title + " " + "url"}
+                  type="text"
+                  className="social-field-url"
+                />
+              )}
+
+              {selectedSocial && selectedSocial.phone && (
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  value={userVal}
+                  error={phoneErr}
+                  helperText={phoneErr && "Only valid phonenumber"}
+                  onChange={(e) => {
+                    handlePhone(e.target.value);
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PhoneIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  label={"Your phone number"}
+                  type="text"
+                  className="social-field"
+                />
+              )}
+
+              {selectedSocial && selectedSocial.socialid && (
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  value={userVal}
                   onChange={(e) => {
                     setUserVal(e.target.value);
                   }}
-                  label={selectedSocial && selectedSocial.title + " " + "url"}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  label={selectedSocial && selectedSocial.title + " " + "id"}
                   type="text"
                   className="social-field"
                 />
@@ -147,7 +272,11 @@ export const AddNewSocial = () => {
               <Button onClick={handleClose} color="primary">
                 Cancel
               </Button>
-              <Button onClick={addSocial} color="primary" disabled={userVal.length<2}>
+              <Button
+                onClick={addSocial}
+                color="primary"
+                disabled={userVal.length < 2}
+              >
                 Add social
               </Button>
             </DialogActions>

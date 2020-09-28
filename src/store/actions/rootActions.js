@@ -1,4 +1,4 @@
-export { login ,createUser} from "./authActions";
+export { login ,createUser,createCompany} from "./authActions";
 export {
 
     deleteSocialItem,
@@ -7,6 +7,14 @@ export {
     createSocialItem,
   } from "./socialsActions";
 
+
+  export {
+
+    deleteHighlightItem,
+    getHighlight,
+    createHighlightItem,
+    deleteAllHighlights
+  } from "./highlightActions";
 
   export {
    getSocialsPublic,

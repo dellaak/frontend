@@ -1,6 +1,7 @@
 import * as actionTypes from "./types";
 import userService from "../../services/userService";
 import authorizationService from "../../services/authService";
+import * as actions from "./rootActions"
 
 export const userUpdateSuccess = (user) => {
   return {
@@ -64,9 +65,11 @@ export const updateUser = (data) => {
     userService.update(data, (response) => {
       if (response.status === 200) {
         dispatch(userUpdateSuccess(response.data.message));
+        dispatch(actions.showNotification('User successfully updated!', "success"));
         dispatch(getPublicUser())
       } else {
         dispatch(userUpdateFail(response.message));
+        dispatch(actions.showNotification('Failed to update user!', "success"));
       }
     });
   };
@@ -79,8 +82,10 @@ export const updateUsername = (data) => {
         dispatch(userUpdateUsernameSuccess(response));
       } else if(response.status === 400){
         dispatch(userUpdateUsernameFail(response.data.message));
+        dispatch(actions.showNotification(response.data.message, "error"));
       }else {
         dispatch(userUpdateUsernameFail(response.data.message));
+        dispatch(actions.showNotification(response.data.message, "success"));
       }
     });
   };
@@ -91,8 +96,10 @@ export const updatePassword = (data) => {
     userService.updateUserPassword(data, (response) => {
       if (response.status === 200) {
         dispatch(userUpdatePasswordSuccess(response));
+        dispatch(actions.showNotification(response.data.message, "success"));
       }else {
         dispatch(userUpdatePasswordFail(response.data.message));
+        dispatch(actions.showNotification(response.data.message, "error"));
       }
     });
   };

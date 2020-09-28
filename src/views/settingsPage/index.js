@@ -19,6 +19,8 @@ import authorizationService, {
   SESSION_TOKEN_EXPIRATION_DATE_KEY,
 } from "../../services/authService";
 import { Redirect } from "react-router";
+import { Store } from "./Store";
+import { Footer } from "../../components/footer";
 
 export const SettingsPage = () => {
   const dispatch = useDispatch();
@@ -29,8 +31,8 @@ export const SettingsPage = () => {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordError, setNewPasswordError] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
-  const [openConfirm, setOpenConfirm] = useState("");
-  const [openConfirmPassword, setOpenConfirmPassword] = useState("");
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [openConfirmPassword, setOpenConfirmPassword] = useState(false);
   const [exist, setExist] = useState(false);
 
   const handleChange = (event, newValue) => {
@@ -130,7 +132,7 @@ if(userData.passwordUpdated ===200){
         className="settings-container"
       >
         {activeTab === 0 && (
-          <Grid container justify="center">
+          <Grid container justify="center" direction="column" alignItems="center">
             <Grid item md={10}>
               <h3 className="account-title">Account settings</h3>
             </Grid>
@@ -219,10 +221,11 @@ if(userData.passwordUpdated ===200){
           </Grid>
         )}
 
-        {activeTab === 2 && (
-          <Grid item md={10}>
-            <h2 className="coming-soon">Coming soon</h2>
-          </Grid>
+        {activeTab === 1 && (
+      
+
+            <Store/>
+        
         )}
       </Grid>
 
@@ -286,6 +289,7 @@ if(userData.passwordUpdated ===200){
           </Button>
         </DialogActions>
       </Dialog>
+    
     </>) : (<Redirect to="/login"/>)
 
 };

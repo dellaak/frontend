@@ -9,6 +9,7 @@ const initialState = {
   userData: [],
   username: null,
   passwordUpdated: false,
+  isCompany:false
 };
 
 const updateUserSuccess = (state, action) => {
@@ -44,7 +45,6 @@ const updateUsernameFail = (state, action) => {
 };
 
 const updatePasswordSuccess = (state, action) => {
-  console.log(action)
   return updateObject(state, {
     loading: false,
     error: null,
@@ -61,9 +61,11 @@ const updatePasswordFail = (state, action) => {
 };
 
 const getUserDataSuccess = (state, action) => {
+
   return updateObject(state, {
     error: null,
     userData: action.userData,
+    isCompany: action.userData.isCompany && true
   });
 };
 

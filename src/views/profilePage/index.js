@@ -1,19 +1,14 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { TopProfile } from "../../components/topProfile";
 import { Social } from "../../components/social";
-import {
-  Grid,
-  Container,
-  Button,
-  TextField,
-} from "@material-ui/core/";
+import { Grid, Container, Button, TextField } from "@material-ui/core/";
 import "./style.scss";
 import { AddNewSocial } from "../../components/addnewsocial";
 import { Link, Redirect, useParams } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { DndProvider } from 'react-dnd-multi-backend';
-import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'; 
+import { DndProvider } from "react-dnd-multi-backend";
+import HTML5toTouch from "react-dnd-multi-backend/dist/esm/HTML5toTouch";
 import update from "immutability-helper";
 import { DropBox } from "./dragBox";
 import PhoneIcon from "@material-ui/icons/Phone";
@@ -24,8 +19,15 @@ import * as actions from "../../store/actions/rootActions";
 import socialsJSON from "./socialsJSON";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { AsYouType, parsePhoneNumberFromString } from "libphonenumber-js";
 import { Navbar } from "../../components/navbar";
+import { Highlights } from "../../components/highlights";
+import { AddNewHighlight } from "../../components/addhighlight";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 export const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -38,30 +40,30 @@ export const ProfilePage = () => {
   const [showQrCode, setShowQrCode] = useState(false);
   const [phoneErr, setphoneErr] = useState(false);
   const [socialList, setSocialList] = useState([]);
-  const [qrcode,setQrcode] = useState('')
+  const [userHighlights, setUserHighlights] = useState([]);
+  const [qrcode, setQrcode] = useState("");
+  const [openDelete, setOpenDelete] = useState(false);
   const userData = useSelector((state) => state.user);
   const publicData = useSelector((state) => state.public);
+  const authData = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(actions.getPublicUser());
-    
   }, []);
 
   useEffect(() => {
-  
     dispatch(actions.getQrCode(userData.userData.username));
     setUser(userData.userData);
     setSocialList(userData.userData.socialsList);
+    setUserHighlights();
   }, [userData.userData]);
 
   useEffect(() => {
     let uD = userData.userData;
-    setQrcode(publicData.qrcode)
+    setQrcode(publicData.qrcode);
     setShowEmail(uD.showEmail);
-    setDescription(uD.description)
-
-
-  }, [userData.userData && userData.userData.phone,publicData]);
+    setDescription(uD.description);
+  }, [userData.userData && userData.userData.phone, publicData]);
 
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
@@ -78,9 +80,9 @@ export const ProfilePage = () => {
     [socialList]
   );
 
-  const resetStates =( )=>{
-    setDescription('')
-  }
+  const resetStates = () => {
+    setDescription("");
+  };
 
   const handleSave = () => {
     if (editMode) {
@@ -95,7 +97,17 @@ export const ProfilePage = () => {
     }
     dispatch(actions.getPublicUser());
 
-    resetStates()
+    resetStates();
+  };
+
+  const handleClose = () => {
+    setOpenDelete(false);
+  };
+
+  const deleteAllHighlights = () => {
+    dispatch(actions.deleteAllHighlights());
+    dispatch(actions.getPublicUser());
+    setOpenDelete(false);
   };
 
   const renderSocials = (social, index) => {
@@ -104,6 +116,7 @@ export const ProfilePage = () => {
       if (k.title === social.title) {
         social.icon = k.icon;
         social.link = social.url ? social.url : k.link + social.username;
+        social.notExternal = k.phone || k.socialid;
       }
     });
 
@@ -121,10 +134,20 @@ export const ProfilePage = () => {
     );
   };
 
-
   return authorizationService.isAuthenticated() ? (
     <>
-    <Navbar/>
+      {user && (
+        <Helmet>
+          <title>{`${user && user.username} | ShareMySocials`}</title>
+          <meta
+            name="description"
+            content={`${
+              user && user.username
+            } have gathered all their socials at ShareMySocials.`}
+          />
+        </Helmet>
+      )}
+      <Navbar />
       <DndProvider options={HTML5toTouch}>
         {user && (
           <div className="profile-wrapper">
@@ -136,9 +159,10 @@ export const ProfilePage = () => {
                       <SettingsIcon className="settings-icon" />
                       <small>Settings</small>
                     </Link>
-                    <a href={`https://www.sharemysocials.com/${user.username}`}
+                    <a
+                      href={`https://www.sharemysocials.com/${user.username}`}
                       className="show-profile-btn"
-                     target="_blank"
+                      target="_blank"
                     >
                       Show profile
                     </a>
@@ -146,8 +170,10 @@ export const ProfilePage = () => {
                     <div className="email-wrap">
                       {showEmail && (
                         <>
-                          <EmailIcon />
-                          <a href={`mailto:${user.email}`}>{user.email} </a>
+                          <a href={`mailto:${user.email}`}>
+                            <EmailIcon className="email-icon-link" />
+                            {user.email}
+                          </a>
                         </>
                       )}
                       {editMode && (
@@ -165,7 +191,7 @@ export const ProfilePage = () => {
                         />
                       )}
                     </div>
-                    {editMode && (
+                    {/* {editMode && (
                         <FormControlLabel
                           control={
                             <Switch
@@ -178,9 +204,9 @@ export const ProfilePage = () => {
                           }
                           label="Show QR Code"
                         />
-                      )}
+                      )} */}
                   </div>
-                
+
                   {!editMode && (
                     <Button
                       className="edit-button-mode"
@@ -215,7 +241,7 @@ export const ProfilePage = () => {
                 <Grid container justify="center">
                   {editMode && (
                     <Grid item md={8} xs={10}>
-                       <span className="counter">{description.length}/100</span>
+                      <span className="counter">{description.length}/100</span>
                       <TextField
                         id="standard-multiline-static"
                         label="Your profile text (Max 100 characters)"
@@ -229,22 +255,44 @@ export const ProfilePage = () => {
                         variant="filled"
                         className="profile-edit-text"
                       />
-                     
                     </Grid>
                   )}
                 </Grid>
-                {editMode && (
-                  <h2 className="reorder-text">
-                    Drag and drop the social icons to reorder
-                  </h2>
-                )}
-                {editMode && (
-                  <AddNewSocial
-                  
-                  />
-                )}
 
-                <Grid container>
+                <Grid item md={6} xs={12} className="highlight-window-wrap">
+                  <div className="highlight-buttons">
+                    {editMode && <AddNewHighlight />}
+                    {editMode && user.highlights.length !== 0 && (
+                      <Button
+                        className="delete-all-hs"
+                        onClick={() => {
+                          setOpenDelete(true);
+                        }}
+                      >
+                        {" "}
+                        <DeleteForeverIcon className="trash-all-icon" />
+                        Delete all highlights{" "}
+                      </Button>
+                    )}
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    {userData.userData.highlights && (
+                      <Highlights
+                        list={user && user.highlights}
+                        socials={userData && userData.userData.socialsList}
+                        editMode={editMode}
+                      />
+                    )}
+                  </div>
+                </Grid>
+                {/* {editMode && (
+                  <h2 className="reorder-text">
+                    Drag and drop the social icons to re-order
+                  </h2>
+                )} */}
+
+                <Grid container className={editMode ? "edit-bg" : ""}>
+                  {editMode && <AddNewSocial />}
                   {socialList &&
                     socialList.length > 0 &&
                     socialList.map((social, i) => renderSocials(social, i))}
@@ -252,9 +300,9 @@ export const ProfilePage = () => {
                   {socialList && socialList.length === 0 && (
                     <Grid item md={12}>
                       <div className="no-socials-text">
-                        <h3>No socials... :(</h3>
                         <p>
-                          Click the edit profile button and start editing your profile!
+                          Click the edit profile button and start editing your
+                          profile!
                         </p>
                       </div>
                     </Grid>
@@ -262,6 +310,36 @@ export const ProfilePage = () => {
                 </Grid>
               </Grid>
               <TopProfile qrcode={qrcode} />
+              {/*DELETE*/}
+              <Dialog
+                open={openDelete}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Delete media from profile"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Are you sure you want to remove <b>ALL</b> your highlights
+                    from your profile ?
+                  </DialogContentText>
+                  <small>You can't regret this..</small>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={deleteAllHighlights}
+                    color="primary"
+                    autoFocus
+                  >
+                    Delete highlights
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Container>
           </div>
         )}

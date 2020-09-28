@@ -1,0 +1,101 @@
+.success-wrap-confirm{
+    background-color: #fefefe;
+    border-radius: 9px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+
+    button{
+   color: white !important;
+        font-size: 1.2rem !important;
+    }
+    a{
+        text-decoration: none;
+        background-color: #1f67e4 !important;
+        margin: 40px 0 ;
+        max-width: 300px;
+        align-self: center;
+     
+       padding: 20px;
+    }
+}
+
+.banner-success{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("/images/hero.jpeg") !important;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.banner-fail{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("/images/hero.jpeg") !important;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+.fail-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 9px;
+
+    h3{
+        font-family: "Baloo Tamma 2", cursive;
+        font-size: 1.5rem;
+    }
+
+    svg{
+        font-size: 3rem;
+        color: red;
+    }
+
+    a{
+       
+    }
+
+    p{
+        font-size: 1.2rem;
+        font-family: "Baloo Tamma 2", cursive;
+    }
+
+    small{
+        font-size: 1rem;
+        font-family: "Baloo Tamma 2", cursive;
+    }
+    button{
+        color: white !important;
+             font-size: 1.2rem !important;
+         }
+}
+
+.link-cancel{
+    text-decoration: none;
+    background-color: #1f67e4 !important;
+    margin: 40px 0 ;
+    max-width: 300px;
+    align-self: center;
+   padding: 20px;
+}

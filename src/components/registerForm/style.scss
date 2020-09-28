@@ -6,6 +6,7 @@
   padding: 10px;
   margin: 10px;
   width: 90% !important;
+  font-family: "Baloo Tamma 2", cursive;
   h2 {
     font-weight: 500;
     font-family: "Baloo Tamma 2", cursive;
@@ -265,4 +266,13 @@
     top: 19px;
     height: 26px;
   }
+}
+
+.terms-link{
+  color: blue;
+  cursor: pointer;
+}
+
+#honeypotsome-div{
+  display: none;
 }

@@ -1,0 +1,165 @@
+.sticker-img{
+    max-height: 400px;
+max-width: 100%;
+}
+
+
+.sticker-img-selection{
+    max-height: 200px;
+    max-width: 100%;
+    cursor: pointer;
+    
+}
+
+.choose-txt{
+    text-align: center;
+    font-size: 2rem;
+    font-family: "Baloo Tamma 2", cursive;
+    font-weight: 600;
+    
+}
+
+.sticker-start{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+   
+}
+
+.ul-list{
+    list-style: none;
+    padding: 0;
+
+    li{
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    svg{
+        color: green;
+        margin-right: 6px;
+    }
+}
+
+
+.buy-btn:disabled{
+    margin-top: 20px !important;
+    background-color: #dddddd !important;
+    color: black !important;
+    padding: 10px !important ;
+    border-radius: 9px;
+    svg{
+        margin-right: 10px;
+        color: white;
+    }
+}
+
+.buy-btn{
+    margin-top: 20px !important;
+    background-color: #FF9900 !important;
+    color: black !important;
+    padding: 10px !important ;
+    border-radius: 9px;
+    svg{
+        margin-right: 10px;
+        color: white;
+    }
+}
+
+.btn-checkout-wrap{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px !important;
+}
+
+
+.store-count{
+    text-align: right;
+    float: right;
+}
+
+.info-text-store{
+    font-family: "Baloo Tamma 2", cursive;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0; 
+
+  
+}
+
+.req-field-store{
+    color: black;
+    font-weight: 600;
+    margin-bottom: 15px !important;
+}
+
+.price-tag.sm{
+    line-height: 16px;
+    height: 16px;
+    font-size: 75%;
+    font-weight: 650;
+    padding: 0 5px 0 2px;
+    margin-left: 10px;
+}
+
+.price-tag{
+    display: inline-block;
+    position: relative;
+    background: #6cb676;
+    color: #fff;
+
+    letter-spacing: 0;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    text-transform: none;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+.price-label{
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  border-bottom: 2px solid lightgray;
+  border-top: none;
+    padding: 5px;
+}
+
+
+.price-label:first-of-type{
+    display: flex;
+    max-width: 100%;
+    justify-content: space-between;
+    align-items: center;
+border-top: 2px solid lightgray;
+    padding: 5px;
+}
+
+
+.input-wrap-text{
+    margin: 20px 0;
+    border: 2px solid lightgray;
+    padding: 10px;
+    border-radius: 9px;
+  div{
+
+    width: 100%;
+  }
+}
+
+.order-mail-wrap{
+    background-color: #FF9900 !important;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   justify-content: center;
+   padding: 20px;
+}
+
