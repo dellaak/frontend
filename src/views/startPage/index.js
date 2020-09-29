@@ -35,16 +35,28 @@ export const StartPage = () => {
 
       <Helmet>
         <link rel="canonical" href="https://www.sharemysocials.com/" />
-        <title>All your socials at one place | ShareMySocials</title>
+    
+  <title>Gather your socials at one place | ShareMySocials</title>
+  <meta name="description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
+  
 
-        <meta
-          name="description"
-          content="Gather all your socials at one place. Get your unique QR code and link to share all of that for free! Sign up now to grow your audience!"
-        />
-        <meta
-          name="keywords"
-          content="social,soacil media, socials, platform, gather, qrcode, free, instagram,facebook,tiktok,snapchat,one place"
-        />
+  <meta itemprop="name" content="Gather your socials at one place | ShareMySocials"/>
+  <meta itemprop="description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
+  <meta itemprop="image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
+  
+
+  <meta property="og:url" content="https://sharemysocials.com"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Gather your socials at one place | ShareMySocials"/>
+  <meta property="og:description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
+  <meta property="og:image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
+  
+
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Gather your socials at one place | ShareMySocials"/>
+  <meta name="twitter:description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
+  <meta name="twitter:image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
+
       </Helmet>
       <div className="banner">
         <Navbar />
@@ -82,7 +94,7 @@ export const StartPage = () => {
                 {" "}
                 <p>Your public url is:</p>
                 {userName && (
-                  <a href={`https://www.sharemysocials.com/${userName}`}>
+                  <a target="_blank" href={`https://www.sharemysocials.com/${userName}`}>
                     sharemysocials.com/{userName}
                   </a>
                 )}

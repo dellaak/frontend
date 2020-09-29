@@ -33,6 +33,7 @@ export const SettingsPage = () => {
   const [retypePassword, setRetypePassword] = useState("");
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openConfirmPassword, setOpenConfirmPassword] = useState(false);
+  const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
   const [exist, setExist] = useState(false);
 
   const handleChange = (event, newValue) => {
@@ -53,7 +54,6 @@ export const SettingsPage = () => {
     };
 
     dispatch(actions.updateUsername(data));
-    
   };
 
   useEffect(() => {
@@ -71,40 +71,54 @@ export const SettingsPage = () => {
         window.location.href = "/login";
       }, 3000);
     }
-  }, [userData, userData.userName&& userData.userName.status]);
+  }, [userData, userData.userName && userData.userName.status]);
 
-  const handleNewPassword = (val) =>{
-      val.trim();
-  
-      let regexp = /\d/;
-      if (!regexp.test(val) || val.length < 6) {
-        setNewPasswordError(true);
-      } else {
-        setNewPasswordError(false);
-      }
-  
-      setNewPassword(val);
-  }
+  const handleNewPassword = (val) => {
+    val.trim();
 
-  const handlePasswordSave = () =>{
+    let regexp = /\d/;
+    if (!regexp.test(val) || val.length < 6) {
+      setNewPasswordError(true);
+    } else {
+      setNewPasswordError(false);
+    }
+
+    setNewPassword(val);
+  };
+
+
+  const handleDeleteAcc = () => {
+
+
+    dispatch(actions.deleteUser());
+
+    setTimeout(() => {
+      sessionStorage.removeItem(SESSION_TOKEN_EXPIRATION_DATE_KEY);
+      sessionStorage.removeItem(SESSION_TOKEN_KEY);
+      window.location.href = "/";
+    }, 1000);
+  };
+
+  const handlePasswordSave = () => {
     const data = {
       newpassword: newPassword,
     };
 
     dispatch(actions.updatePassword(data));
-  }
+   
+  };
 
-  const handlePasswordClose = () =>{
-  setOpenConfirmPassword(false)
-  }
+  const handlePasswordClose = () => {
+    setOpenConfirmPassword(false);
+  };
 
   useEffect(() => {
-if(userData.passwordUpdated ===200){
-  setOpenConfirmPassword(true)
-  setNewPassword('')
-  setRetypePassword('')
-}
-  }, [userData, userData.passwordUpdated])
+    if (userData.passwordUpdated === 200) {
+      setOpenConfirmPassword(true);
+      setNewPassword("");
+      setRetypePassword("");
+    }
+  }, [userData, userData.passwordUpdated]);
 
   return authorizationService.isAuthenticated() ? (
     <>
@@ -132,7 +146,12 @@ if(userData.passwordUpdated ===200){
         className="settings-container"
       >
         {activeTab === 0 && (
-          <Grid container justify="center" direction="column" alignItems="center">
+          <Grid
+            container
+            justify="center"
+            direction="column"
+            alignItems="center"
+          >
             <Grid item md={10}>
               <h3 className="account-title">Account settings</h3>
             </Grid>
@@ -148,6 +167,7 @@ if(userData.passwordUpdated ===200){
               >
                 <Tab label="Username" />
                 <Tab label="Password" />
+                <Tab label="Delete Account" />
                 {/* <Tab  label="Verified" /> */}
               </Tabs>
             </Grid>
@@ -172,9 +192,13 @@ if(userData.passwordUpdated ===200){
                       }}
                     />
                     <Button
-                      className={userName.length<3 ?  "userName-disabled-btn" :"save-button-account"}
+                      className={
+                        userName.length < 3
+                          ? "userName-disabled-btn"
+                          : "save-button-account"
+                      }
                       onClick={updateUserName}
-                      disabled={userName.length<3 && true}
+                      disabled={userName.length < 3 && true}
                     >
                       Save username
                     </Button>
@@ -193,7 +217,9 @@ if(userData.passwordUpdated ===200){
                       type="password"
                       value={newPassword}
                       error={newPasswordError ? true : false}
-                      helperText={newPasswordError && "Minimum 6 characters and 1 number"}
+                      helperText={
+                        newPasswordError && "Minimum 6 characters and 1 number"
+                      }
                       onChange={(e) => {
                         handleNewPassword(e.target.value);
                       }}
@@ -207,26 +233,60 @@ if(userData.passwordUpdated ===200){
                       type="password"
                       variant="outlined"
                       value={retypePassword}
-                      error={retypePassword !== newPassword ? true : false} 
-                      helperText={retypePassword.length > 2 && retypePassword !== newPassword && "Password is not equal"}
+                      error={retypePassword !== newPassword ? true : false}
+                      helperText={
+                        retypePassword.length > 2 &&
+                        retypePassword !== newPassword &&
+                        "Password is not equal"
+                      }
                       onChange={(e) => {
                         setRetypePassword(e.target.value);
                       }}
                     />
                   </Grid>
-                  <Button onClick={handlePasswordSave} className={newPasswordError || retypePassword !== newPassword || newPassword.length === 0 ?  "userName-disabled-btn" :"save-button-account"} disabled={newPasswordError || retypePassword !== newPassword  || newPassword.length<6 && retypePassword.length<6}>Save password</Button>
+                  <Button
+                    onClick={handlePasswordSave}
+                    className={
+                      newPasswordError ||
+                      retypePassword !== newPassword ||
+                      newPassword.length === 0
+                        ? "userName-disabled-btn"
+                        : "save-button-account"
+                    }
+                    disabled={
+                      newPasswordError ||
+                      retypePassword !== newPassword ||
+                      (newPassword.length < 6 && retypePassword.length < 6)
+                    }
+                  >
+                    Save password
+                  </Button>
                 </Grid>
               )}
             </Grid>
           </Grid>
         )}
 
-        {activeTab === 1 && (
-      
-
-            <Store/>
-        
+        {activeSecondTab === 2 && (
+          <Grid item md={6} xs={10} className="delete-wrap-settings">
+            <p className="change-text">
+              Click on the button to delete your account
+            </p>
+            <small>
+              You can <b>not</b> regret this action!
+            </small>
+            <Grid item md={10}>
+              <Button
+                className="delete-button-account"
+                onClick={()=>{setOpenConfirmDelete(true)}}
+              >
+                Delete my account
+              </Button>
+            </Grid>
+          </Grid>
         )}
+
+        {activeTab === 1 && <Store />}
       </Grid>
 
       <Dialog
@@ -246,18 +306,22 @@ if(userData.passwordUpdated ===200){
               </div>
             </div>
             <div>
-        
-              <p className="first-dialog-p">Username changed to <b>{userName}</b>! </p>
-              <p className="second-dialog-p">Please login with your new
-              username!</p>
-              <p className="third-dialog-p">If you're not redirected within 5 seconds. </p>
-              <p className="fourth-dialog-p">Please <a href="/login">click here to login</a></p>
-        
+              <p className="first-dialog-p">
+                Username changed to <b>{userName}</b>!{" "}
+              </p>
+              <p className="second-dialog-p">
+                Please login with your new username!
+              </p>
+              <p className="third-dialog-p">
+                If you're not redirected within 5 seconds.{" "}
+              </p>
+              <p className="fourth-dialog-p">
+                Please <a href="/login">click here to login</a>
+              </p>
             </div>
           </div>
         </DialogContent>
       </Dialog>
-
 
       <Dialog
         open={openConfirmPassword}
@@ -276,20 +340,44 @@ if(userData.passwordUpdated ===200){
               </div>
             </div>
             <div>
-        
-              <p className="first-dialog-p"><b>Your password is now changed :)</b> </p>
-
-        
+              <p className="first-dialog-p">
+                <b>Your password is now changed :)</b>{" "}
+              </p>
             </div>
           </div>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handlePasswordClose} color="primary">
-           Close
+            Close
           </Button>
         </DialogActions>
       </Dialog>
-    
-    </>) : (<Redirect to="/login"/>)
 
+      <Dialog
+        open={openConfirmDelete}
+        aria-labelledby="form-dialog-title"
+        className="add-social-dialog"
+      >
+        <DialogTitle id="form-dialog-title">Delete account</DialogTitle>
+        <DialogContent>
+          <p className="first-dialog-p">
+            <b>Are you sure you want to delete your account permanent?</b>{" "}
+          </p>
+          <small className="small-delete">
+            You<b> CAN NOT</b> regret this option.
+          </small>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={()=>{setOpenConfirmDelete(false)}} color="primary">
+            Abort
+          </Button>
+          <Button className="delete-confirm-btn" autoFocus onClick={handleDeleteAcc} color="primary">
+            Delete Account
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  ) : (
+    <Redirect to="/login" />
+  );
 };

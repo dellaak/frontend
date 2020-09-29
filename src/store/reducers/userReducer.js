@@ -60,6 +60,21 @@ const updatePasswordFail = (state, action) => {
   });
 };
 
+
+const deleteUserSuccess = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: null,
+  });
+};
+
+const deleteUserFail = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error
+  });
+};
+
 const getUserDataSuccess = (state, action) => {
 
   return updateObject(state, {
@@ -84,6 +99,13 @@ const userReducer = (state = initialState, action) => {
 
     case actionTypes.LOGIN_FAILURE:
       return updateUserFail(state, action);
+
+      case actionTypes.USER_DELETE_SUCCESS:
+        return deleteUserSuccess(state, action);
+  
+      case actionTypes.USER_DELETE_FAILURE:
+        return deleteUserFail(state, action);
+  
 
     case actionTypes.USER_UPDATE_USERNAME_SUCCESS:
       return updateUsernameSuccess(state, action);

@@ -77,7 +77,7 @@ export const StartPageSecond = () => {
 
       <Grid container item md={12} className="second">
         <Grid item md={6} className="img-second">
-          <img src="/images/hsex.jpg" className="high-start" alt="highlight-ex"></img>
+          <img src="/images/hs-ex.png" className="high-start" alt="highlight-ex"></img>
         </Grid>
         <Grid item md={6} className="text-second">
           <h3>Add highlights</h3>

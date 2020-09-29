@@ -37,7 +37,7 @@ export const Footer = () => {
           return acceptCookie();
         }}
       >
-        This website uses cookies to analyise traffic and ensure you get the
+        This website uses cookies to analyse traffic and ensure you get the
         best experience on our website. By using our website you agree to our
         use of cookies.{" "}
         <span style={{cursor:"pointer"}} onClick={() => setOpen({ open: true, opt: 1 })}>Read more</span>
@@ -47,7 +47,7 @@ export const Footer = () => {
           <a href="https://www.sharemysocials.com/sharemysocials">
             <img src="/images/logofooter.png" />
           </a>
-          
+        
         </Grid>
 
         <Grid item md={4} xs={12}  className="footer-div">

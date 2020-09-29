@@ -74,6 +74,7 @@ export const AddNewHighlight = () => {
   const handleClose = () => {
     setOpen(false);
     setSelectedSocial(null);
+    resetForm();
   };
 
   const addHighLight = (url) => {

@@ -35,6 +35,7 @@ const handleClose = () =>{
   const MyComp = ({ item, style }) => {
     style = {
       ...style,
+      paddingLeft:'10px',
       borderBottom: "1px solid #fbb542",
       display: "flex",
       alignItems: "center",
@@ -57,7 +58,7 @@ const handleClose = () =>{
                 e.target.src = "/images/socialicons/fallback.svg";
               }}
             />
-            {item.text}
+           <p className="item-text-hs">{item.text}</p>
           </a>
         
         </div>
@@ -71,7 +72,7 @@ const handleClose = () =>{
             target="_blank"
           >
             <img className="highlight-icon" src={item.social.icon} />
-            {item.text}
+            <p className="item-text-hs">{item.text}</p>
           </a>
         
         </div>
@@ -81,7 +82,7 @@ const handleClose = () =>{
         <div style={style}>
           <div onClick={()=>{setOpen({open:true, item:item.social})}} className="list-wrap-phone">
             <img className="highlight-icon" src={item.social.icon} />
-            {item.text}
+            <p className="item-text-hs">{item.text}</p>
             </div>
          
         </div>
@@ -91,7 +92,7 @@ const handleClose = () =>{
         <div style={style}>
           <div onClick={()=>{setOpen({open:true, item:item.social})}} className="list-wrap-phone">
             <img className="highlight-icon" src={item.social.icon} />
-            {item.text}
+            <p className="item-text-hs">{item.text}</p>
             </div>
           
         </div>

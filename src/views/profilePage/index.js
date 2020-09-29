@@ -145,6 +145,40 @@ export const ProfilePage = () => {
               user && user.username
             } have gathered all their socials at ShareMySocials.`}
           />
+
+
+
+<meta name="description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
+  
+
+  <meta itemprop="name" content={`${
+              user && user.username
+            } | ShareMySocials.`}/>
+  <meta itemprop="description" content={`${
+              user && user.username
+            } have gathered all their socials at ShareMySocials.`}/>
+  <meta itemprop="image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
+  
+
+  <meta property="og:url" content={`https://sharemysocials.com/${user && user.username}`}/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content={`${
+              user && user.username
+            } | ShareMySocials.`}/>
+  <meta property="og:description" content={`${
+              user && user.username
+            } have gathered all their socials at ShareMySocials.`}/>
+  <meta property="og:image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
+  
+
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content={`${
+              user && user.username
+            } | ShareMySocials.`}/>
+  <meta name="twitter:description" content={`${
+              user && user.username
+            } have gathered all their socials at ShareMySocials.`}/>
+  <meta name="twitter:image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
         </Helmet>
       )}
       <Navbar />

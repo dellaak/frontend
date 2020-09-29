@@ -151,3 +151,27 @@
 .userName-disabled-btn{
   background: lightgray !important;
 }
+
+.delete-wrap-settings {
+  border-radius: 9px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.delete-button-account{
+  background-color: rgb(238, 39, 4) !important;
+  color: white !important;
+  border-radius: 3px !important;
+  width: 200px;
+}
+
+.small-delete{
+  color:red;
+}
+
+.delete-confirm-btn{
+  background-color:rgb(238, 39, 4)  !important;
+  color: white !important;
+}

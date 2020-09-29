@@ -14,7 +14,6 @@ import "./Appstyle.scss";
 import { SuccessPage } from "./views/payments/Success";
 import { CancelPage } from "./views/payments/Cancel";
 import { DownloadPage } from "./views/downloads";
-import { FeedPage } from "./views/feedPage";
 
 
 function App() {
@@ -29,8 +28,8 @@ function App() {
         <Route path="/settings" component={SettingsPage} />
         <Route path="/:user" component={PublicPage} />
         <Route path="/verify/:activationtoken" component={VerifiedPage} />
-        {/* <Route path="/success" component={SuccessPage} /> */}
-        <Route path="/success" component={FeedPage} />
+        <Route path="/success" component={SuccessPage} />
+      
         <Route path="/downloads" component={DownloadPage} />
         <Route path="/cancel" component={CancelPage} />
         <Route path="/404" component={ErrorPage} />

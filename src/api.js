@@ -26,7 +26,8 @@ export const API = {
   users:{
     update:"/user_update",
     updateusername:"/user_updateusername",
-    updateUserPassword:"/user_updatepassword"
+    updateUserPassword:"/user_updatepassword",
+    delete:"/user_delete"
   },
   buy:{
     create:"/create_customer"

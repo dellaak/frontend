@@ -39,6 +39,7 @@ export const Highlights = ({ list, editMode }) => {
   const MyComp = ({ item, style }) => {
     style = {
       ...style,
+      paddingLeft:"10px",
       borderBottom: "1px solid #fbb542",
       display: "flex",
       alignItems: "center",
@@ -68,7 +69,7 @@ export const Highlights = ({ list, editMode }) => {
                   e.target.src = "/images/socialicons/fallback.svg";
                 }}
               />
-              {item.text}
+            <p className="item-text-hs">{item.text}</p>
             </a>
         
 
@@ -94,7 +95,7 @@ export const Highlights = ({ list, editMode }) => {
             target="_blank"
           >
             <img className="highlight-icon" src={item.social.icon} />
-            {item.text}
+            <p className="item-text-hs">{item.text}</p>
          
           </a>
      
@@ -121,7 +122,7 @@ export const Highlights = ({ list, editMode }) => {
             className="list-wrap-phone"
           >
             <img className="highlight-icon" src={item.social.icon} />
-            {item.text}
+            <p className="item-text-hs">{item.text}</p>
           </div>
           {editMode && (
             <Button
@@ -145,7 +146,7 @@ export const Highlights = ({ list, editMode }) => {
             className="list-wrap-phone"
           >
             <img className="highlight-icon" src={item.social.icon} />
-            {item.text}
+            <p className="item-text-hs">{item.text}</p>
           </div>
           {editMode && (
             <Button

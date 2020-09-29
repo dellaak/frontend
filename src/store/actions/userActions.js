@@ -60,6 +60,20 @@ export const getPublicUserFail = (error) => {
   };
 };
 
+
+export const userDeleteSuccess = (res) => {
+  return {
+    type: actionTypes.USER_DELETE_SUCCESS,
+  };
+};
+
+export const userDeleteFail = (error) => {
+  return {
+    type: actionTypes.USER_DELETE_FAILURE,
+    error: error,
+  };
+};
+
 export const updateUser = (data) => {
   return (dispatch) => {
     userService.update(data, (response) => {
@@ -99,6 +113,21 @@ export const updatePassword = (data) => {
         dispatch(actions.showNotification(response.data.message, "success"));
       }else {
         dispatch(userUpdatePasswordFail(response.data.message));
+        dispatch(actions.showNotification(response.data.message, "error"));
+      }
+    });
+  };
+};
+
+
+export const deleteUser= () => {
+  return (dispatch) => {
+    userService.deleteUser({}, (response) => {
+      if (response.status === 200) {
+        dispatch(userDeleteSuccess(response));
+        dispatch(actions.showNotification(response.data.message, "success"));
+      }else {
+        dispatch(userDeleteFail(response.data.message));
         dispatch(actions.showNotification(response.data.message, "error"));
       }
     });

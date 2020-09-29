@@ -27,7 +27,8 @@ export {
     updateUser,
     getPublicUser,
     updateUsername,
-    updatePassword
+    updatePassword,
+    deleteUser
   } from "./userActions"
 
   export {showNotification,hideNotification} from "./uiActions"

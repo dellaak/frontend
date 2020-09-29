@@ -39,6 +39,17 @@ const userService = {
         callback(error.response);
       });
   },
+  deleteUser: ()=> {
+    Axios.post(API.users.delete,{}, {
+      headers: authHeader()
+    })
+      .then(response => {
+     //Pass
+      })
+      .catch(error => {
+      //Pass
+      });
+  },
  
  
  
