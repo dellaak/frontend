@@ -135,10 +135,8 @@ export const RegisterForm = () => {
 
   useEffect(() => {
   if(reEmail !== email){
-    setEmailErr(true)
     setReEmailErr(true)
   }else{
-    setEmailErr(false)
     setReEmailErr(false)
   }
   }, [reEmail, email])

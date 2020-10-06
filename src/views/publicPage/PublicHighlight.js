@@ -47,12 +47,18 @@ const handleClose = () =>{
 
     if (item.url) {
       item.url = item.url.replace(/\/$/, "");
+
+      // run against regex
+      const matches = item.url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+      // extract hostname (will be null if no match is found)
+      const favurl = matches && matches[1];
+      
       return (
         <div style={style}>
           <a href={item.url} target="_blank" className="single-highlight-row">
             <img
               className="highlight-icon"
-              src={item.url ? item.url + "/favicon.ico" : ""}
+              src={item.url ? "https://" + favurl + "/favicon.ico" : ""}
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "/images/socialicons/fallback.svg";

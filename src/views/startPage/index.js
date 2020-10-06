@@ -106,8 +106,8 @@ export const StartPage = () => {
                   Register now and gather all your socials at one place{" "}
                   <b>FOR FREE!</b>
                 </p>
-                <p>Customize your profile and grow followers on all platforms.</p>
-                <p>One QR-Code or link for all your socials.</p>
+                <p>Customize your profile and grow followers on all platforms</p>
+                <p>One QR-Code or link for all your socials</p>
                 <p>
                   <i>
                     Check out our profile{" "}

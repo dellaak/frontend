@@ -49,7 +49,6 @@ export const Highlights = ({ list, editMode }) => {
       flex: 1,
     };
     if (item.url) {
-      let gotFavicon = false;
       item.url = item.url.replace(/\/$/, "");
 
       // run against regex
