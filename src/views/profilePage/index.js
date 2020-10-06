@@ -226,10 +226,10 @@ export const ProfilePage = () => {
       )}
       <Navbar />
       <DndProvider options={HTML5toTouch}>
-        {user && (
+        {user  &&(
           <BackgroundDiv
             bgcolor={selectedColor}
-            className={!selectedColor && "profile-wrapper"}
+            className={user && !selectedColor && "profile-wrapper"}
           >
             <Container maxWidth="md">
               <Grid className="wrapper-bottom" container>

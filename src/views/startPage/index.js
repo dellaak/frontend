@@ -99,17 +99,18 @@ export const StartPage = () => {
               </div>
             ) : (
               <div className="text-wrap">
-                <img className="gif-landing" src="/images/gif4.gif" />
+                {/* <img className="gif-landing" src="/images/gif4.gif" /> */}
                 <div>
                 <h2>Tired of linking to different social accounts?</h2>
                 <p>
                   Register now and gather all your socials at one place{" "}
                   <b>FOR FREE!</b>
                 </p>
+                <p>Customize your profile and grow followers on all platforms.</p>
                 <p>One QR-Code or link for all your socials.</p>
                 <p>
                   <i>
-                    Check out our simple profile{" "}
+                    Check out our profile{" "}
                     <a
                       className="a-tag-example"
                       target="_blank"
