@@ -52,7 +52,10 @@ export const AddNewSocial = () => {
       });
       setSocialList(y);
     }
+
   }, [userData]);
+
+
 
   const handleClickOpen = () => {
     setOpen(true);

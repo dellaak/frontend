@@ -21,6 +21,10 @@ export const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [legalname, setLegalName] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [reEmail, setReEmail] = useState("");
+  const [reEmailErr, setReEmailErr] = useState(false);
+  const [reCompanyEmail, setReCompanyEmail] = useState("");
+  const [reCompanyEmailErr, setCompanyReEmailErr] = useState(false);
   const [userErr, setUserErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
@@ -50,9 +54,11 @@ export const RegisterForm = () => {
     setPassword("");
     setLegalName("");
     setRePassword("");
+    setReEmail("")
     setUserErr(false);
     setPasswordErr(false);
     setRePasswordErr(false);
+    setReEmailErr(false);
     setEmailErr(false);
     setTakenName(false);
     setTakenLegal(false);
@@ -71,7 +77,8 @@ export const RegisterForm = () => {
       !passwordErr &&
       rePassword === password &&
       acceptTerms === true &&
-      !honeySpot
+      !honeySpot &&
+      !reEmailErr
     ) {
       setDisableButton(false);
     } else {
@@ -88,6 +95,7 @@ export const RegisterForm = () => {
     rePassword,
     acceptTerms,
     honeySpot,
+    reEmailErr,
   ]);
 
   useEffect(() => {
@@ -102,7 +110,8 @@ export const RegisterForm = () => {
       !passwordErr &&
       rePassword === password &&
       acceptTerms === true &&
-      !honeySpot
+      !honeySpot &&
+      !reEmailErr
     ) {
       setDisableCompanyButton(false);
     } else {
@@ -121,7 +130,18 @@ export const RegisterForm = () => {
     rePassword,
     acceptTerms,
     honeySpot,
+    reEmailErr,
   ]);
+
+  useEffect(() => {
+  if(reEmail !== email){
+    setEmailErr(true)
+    setReEmailErr(true)
+  }else{
+    setEmailErr(false)
+    setReEmailErr(false)
+  }
+  }, [reEmail, email])
 
   const validateUserName = (val) => {
     val.trim();
@@ -152,8 +172,16 @@ export const RegisterForm = () => {
     let regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     setEmailErr(!regexp.test(String(val).toLowerCase()));
     setEmail(val.toLowerCase());
+
   };
 
+  const validateReEmail = (val) => {
+    val.trim();
+    setReEmail(val);
+  };
+
+
+  
   const validatePassword = (val) => {
     val.trim();
 
@@ -319,7 +347,7 @@ export const RegisterForm = () => {
               </Grid>
             )}
             {userType === "company" && (
-              <Grid item md={5} xs={10}>
+              <Grid item md={11} xs={10}>
                 <TextField
                   className="text-field"
                   label="Company legal name"
@@ -334,7 +362,7 @@ export const RegisterForm = () => {
                 />
               </Grid>
             )}
-            {userType === "company" && (
+            {userType === "company" && (<>
               <Grid item md={5} xs={10}>
                 <TextField
                   className="text-field"
@@ -352,10 +380,26 @@ export const RegisterForm = () => {
                   }}
                 />
               </Grid>
+              <Grid item md={5} xs={10}>
+                <TextField
+                  className="text-field"
+                  label="Confirm email"
+                  variant="outlined"
+                  required
+                  error={reEmailErr}
+                  helperText={
+                    reEmailErr && "Email don't match"
+                  }
+                  onChange={(e) => {
+                    validateReEmail(e.target.value);
+                  }}
+                />
+              </Grid>
+              </>
             )}
             {/* PERSONAL */}
             {userType === "personal" && (
-              <Grid item md={5} xs={10}>
+              <Grid item md={11} xs={10}>
                 <TextField
                   className="text-field"
                   label="Username"
@@ -373,23 +417,38 @@ export const RegisterForm = () => {
               </Grid>
             )}
             {userType === "personal" && (
-              <Grid item md={5} xs={10}>
-                <TextField
-                  className="text-field"
-                  label="Email"
-                  required
-                  variant="outlined"
-                  error={emailErr || takenEmail}
-                  helperText={
-                    !takenEmail
-                      ? "We'll send an activation link to this email"
-                      : "Email exists"
-                  }
-                  onChange={(e) => {
-                    validateEmail(e.target.value);
-                  }}
-                />
-              </Grid>
+              <>
+                <Grid item md={5} xs={10}>
+                  <TextField
+                    className="text-field"
+                    label="Email"
+                    required
+                    variant="outlined"
+                    error={emailErr || takenEmail}
+                    helperText={
+                      !takenEmail
+                        ? "We'll send an activation link to this email"
+                        : "Email exists"
+                    }
+                    onChange={(e) => {
+                      validateEmail(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item md={5} xs={10}>
+                  <TextField
+                    className="text-field"
+                    label="Confirm mail"
+                    required
+                    variant="outlined"
+                    error={reEmailErr && true}
+                    helperText={reEmailErr && "Email not matching"}
+                    onChange={(e) => {
+                      validateReEmail(e.target.value);
+                    }}
+                  />
+                </Grid>
+              </>
             )}
             <Grid item md={5} xs={10}>
               <TextField

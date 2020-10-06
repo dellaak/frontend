@@ -9,13 +9,13 @@ import authorizationService from "../../services/authService";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions/rootActions";
 import { Footer } from "../../components/footer";
-
+import { Player } from "video-react";
 
 export const StartPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [userName, setUserName] = useState(null);
-  
+
   useEffect(() => {
     if (authorizationService.isAuthenticated()) {
       dispatch(actions.getPublicUser());
@@ -28,35 +28,58 @@ export const StartPage = () => {
     }
   }, [user]);
 
-
   return (
     <>
-   
-
       <Helmet>
         <link rel="canonical" href="https://www.sharemysocials.com/" />
-    
-  <title>Gather your socials at one place | ShareMySocials</title>
-  <meta name="description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
-  
 
-  <meta itemprop="name" content="Gather your socials at one place | ShareMySocials"/>
-  <meta itemprop="description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
-  <meta itemprop="image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
-  
+        <title>Gather your socials at one place | ShareMySocials</title>
+        <meta
+          name="description"
+          content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"
+        />
 
-  <meta property="og:url" content="https://sharemysocials.com"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Gather your socials at one place | ShareMySocials"/>
-  <meta property="og:description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
-  <meta property="og:image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
-  
+        <meta
+          itemprop="name"
+          content="Gather your socials at one place | ShareMySocials"
+        />
+        <meta
+          itemprop="description"
+          content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"
+        />
+        <meta
+          itemprop="image"
+          content="https://www.sharemysocials.com/images/secondimg2.png"
+        />
 
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Gather your socials at one place | ShareMySocials"/>
-  <meta name="twitter:description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
-  <meta name="twitter:image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
+        <meta property="og:url" content="https://sharemysocials.com" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Gather your socials at one place | ShareMySocials"
+        />
+        <meta
+          property="og:description"
+          content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"
+        />
+        <meta
+          property="og:image"
+          content="https://www.sharemysocials.com/images/secondimg2.png"
+        />
 
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Gather your socials at one place | ShareMySocials"
+        />
+        <meta
+          name="twitter:description"
+          content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.sharemysocials.com/images/secondimg2.png"
+        />
       </Helmet>
       <div className="banner">
         <Navbar />
@@ -73,10 +96,11 @@ export const StartPage = () => {
                   The sticker includes your QR code and a small text that you
                   choose.
                 </p>
-                <p>Grow followers on all your platforms now!</p>
               </div>
             ) : (
               <div className="text-wrap">
+                <img className="gif-landing" src="/images/gif4.gif" />
+                <div>
                 <h2>Tired of linking to different social accounts?</h2>
                 <p>
                   Register now and gather all your socials at one place{" "}
@@ -84,7 +108,19 @@ export const StartPage = () => {
                 </p>
                 <p>One QR-Code or link for all your socials.</p>
                 <p>Grow followers on all platforms instead of one!</p>
-                <p><i>Check out our simple profile <a className="a-tag-example" target="_blank" href="https://www.sharemysocials.com/sharemysocials">ShareMySocials Profile</a></i></p>
+                <p>
+                  <i>
+                    Check out our simple profile{" "}
+                    <a
+                      className="a-tag-example"
+                      target="_blank"
+                      href="https://www.sharemysocials.com/sharemysocials"
+                    >
+                      ShareMySocials Profile
+                    </a>
+                  </i>
+                </p>
+                </div>
               </div>
             )}
           </Grid>
@@ -94,7 +130,10 @@ export const StartPage = () => {
                 {" "}
                 <p>Your public url is:</p>
                 {userName && (
-                  <a target="_blank" href={`https://www.sharemysocials.com/${userName}`}>
+                  <a
+                    target="_blank"
+                    href={`https://www.sharemysocials.com/${userName}`}
+                  >
                     sharemysocials.com/{userName}
                   </a>
                 )}
@@ -108,7 +147,9 @@ export const StartPage = () => {
       </div>
 
       <div>
-        <h2 className="second-title">What's <img className="textlogo" src="/images/text-logo2.png" /></h2>
+        <h2 className="second-title">
+          What's <img className="textlogo" src="/images/text-logo2.png" />
+        </h2>
 
         <Grid container justify="space-evenly" className="second-page">
           <StartPageSecond />
