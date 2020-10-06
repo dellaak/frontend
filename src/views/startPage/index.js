@@ -99,7 +99,7 @@ export const StartPage = () => {
               </div>
             ) : (
               <div className="text-wrap">
-                <img className="gif-landing" src="/images/gif4.gif" />
+                <img className="gif-landing" src="/images/landinggif.gif" />
                 <div>
                 <h2>Tired of linking to different social accounts?</h2>
                 <p>
@@ -107,7 +107,6 @@ export const StartPage = () => {
                   <b>FOR FREE!</b>
                 </p>
                 <p>One QR-Code or link for all your socials.</p>
-                <p>Grow followers on all platforms instead of one!</p>
                 <p>
                   <i>
                     Check out our simple profile{" "}
