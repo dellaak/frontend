@@ -33,9 +33,7 @@
       text-decoration: none;
     }
   }
-
   
-
   .settings-icon {
     height: 50px;
     width: 50px;
@@ -73,12 +71,7 @@
     }
   }
   
-  .edit-button-mode{
-    background: white !important;
-    border-radius: 9px !important;
-  float: right;
-  margin-bottom: 10px !important;
-  }
+
   
   .highlight-text {
     border-top: 1px solid lightgray !important;
@@ -117,6 +110,7 @@
     background-color: white !important;
     color: white;
     margin: 15px 0 !important; 
+    font-family: "Baloo Tamma 2", cursive !important;
   }
 
 
@@ -135,3 +129,43 @@
   .profile-logo {
     height: 100px;
   }
+
+  .follow-btn{
+    background-color:#1f67e4 !important ;
+    color: white !important;
+    width: 120px;
+    height: 40px;
+    font-family: "Baloo Tamma 2", cursive !important;
+  }
+
+  .following-btn{
+    width: 140px;
+    height: 40px;
+    background-color:#3CB371 !important ;
+    color: white !important;
+    font-family: "Baloo Tamma 2", cursive !important;
+    -webkit-box-shadow: inset 0px -2px 10px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px -2px 10px -1px rgba(0,0,0,0.75);
+    box-shadow: inset 0px -2px 10px -1px rgba(0,0,0,0.75);
+    display: flex;
+    align-items: end !important;
+    padding-top: 10px !important; 
+
+    svg{
+      width: 20px;
+      height: 20px;
+      margin-left: 5px;
+      color: white;
+    }
+  }
+
+
+
+
+
+
+
+
+
+  
+  

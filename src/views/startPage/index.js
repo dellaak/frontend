@@ -99,7 +99,7 @@ export const StartPage = () => {
               </div>
             ) : (
               <div className="text-wrap">
-                <img className="gif-landing" src="/images/landinggif.gif" />
+                <img className="gif-landing" src="/images/gif4.gif" />
                 <div>
                 <h2>Tired of linking to different social accounts?</h2>
                 <p>

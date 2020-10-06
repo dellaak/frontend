@@ -12,6 +12,7 @@ import socialsJSON from "../profilePage/socialsJSON";
 import { Helmet } from "react-helmet";
 import { Highlights } from "../../components/highlights";
 import { PublicHighlight } from "./PublicHighlight";
+import {BackgroundDiv} from "./styledPublic"
 
 export const PublicPage = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export const PublicPage = () => {
   const publicUser = useSelector((state) => state.public);
   const [noUser, setNoUser] = useState(false);
   const [showQr, setShowQr] = useState(false);
+  const [selectedColor,setSelectedColor] = useState('')
 
 
   useEffect(() => {
@@ -32,6 +34,9 @@ export const PublicPage = () => {
   useEffect(() => {
     setSelectedUser(publicUser.publicList);
     setSocialList(publicUser.publicList.socialsList);
+    if(publicUser.publicList.selectedColor){
+      setSelectedColor(publicUser.publicList.selectedColor);
+    }
   }, [publicUser.publicList]);
 
   useEffect(() => {
@@ -76,7 +81,7 @@ export const PublicPage = () => {
 
   
       {socialList && selectedUser && (
-        <div className="profile-wrapper">
+        <BackgroundDiv bgcolor={selectedColor} className={!selectedColor &&  "profile-wrapper"}>
           <Container maxWidth="md">
             <Grid className="wrapper-bottom" container>
               <Grid item md={12} xs={12}>
@@ -135,7 +140,7 @@ export const PublicPage = () => {
           <a href="https://www.sharemysocials.com">
           <img src="/images/navlogo.svg" className="profile-logo" />
           </a>
-        </div>
+          </BackgroundDiv>
       )}
       {noUser && <Redirect to="/404" />}
      

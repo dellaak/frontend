@@ -2,16 +2,7 @@
   padding: 20px;
 }
 
-.profile-wrapper {
-  display: flex;
-  justify-content: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/images/hero.jpeg") !important;
-  background-size: cover !important;
-  height: auto;
-  min-height: 100vh;
-  padding-top: 60px;
-}
+
 
 .settings-wrap {
   display: flex;
@@ -87,6 +78,31 @@ margin-bottom: 10px !important;
   text-decoration: underline;
   border-radius: 9px !important;
   font-family: "Baloo Tamma 2", cursive;
+}
+
+.edit-bg-btn{
+  background-color: #03a9f4 !important;
+  color: white !important;
+  text-decoration: underline;
+  border-radius: 9px !important;
+  font-family: "Baloo Tamma 2", cursive;
+}
+
+
+.reset-bg-btn{
+  background-color: #fff!important;
+  color: #000 !important;
+  margin-top: 10px ;
+  margin: 0 auto;
+  display: flex;
+  text-decoration: underline;
+  font-family: "Baloo Tamma 2", cursive;
+}
+
+
+.color-wrapper{
+  display: flex;
+  flex-direction: column;
 }
 
 .highlight-text {

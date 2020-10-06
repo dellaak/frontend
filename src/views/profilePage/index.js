@@ -1,7 +1,14 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { TopProfile } from "../../components/topProfile";
 import { Social } from "../../components/social";
-import { Grid, Container, Button, TextField } from "@material-ui/core/";
+import {
+  Grid,
+  Container,
+  Button,
+  TextField,
+  Fade,
+  Slide,
+} from "@material-ui/core/";
 import "./style.scss";
 import { AddNewSocial } from "../../components/addnewsocial";
 import { Link, Redirect, useParams } from "react-router-dom";
@@ -28,6 +35,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { SwatchesPicker } from "react-color";
+import { BackgroundDiv } from "./styledProfile";
+import { userDeleteFail } from "../../store/actions/userActions";
 
 export const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -43,6 +53,8 @@ export const ProfilePage = () => {
   const [userHighlights, setUserHighlights] = useState([]);
   const [qrcode, setQrcode] = useState("");
   const [openDelete, setOpenDelete] = useState(false);
+  const [showColors, setShowColors] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("");
   const userData = useSelector((state) => state.user);
   const publicData = useSelector((state) => state.public);
   const authData = useSelector((state) => state.auth);
@@ -56,6 +68,9 @@ export const ProfilePage = () => {
     setUser(userData.userData);
     setSocialList(userData.userData.socialsList);
     setUserHighlights();
+    if (userData.userData && userData.userData.selectedColor) {
+      setSelectedColor(userData.userData.selectedColor);
+    }
   }, [userData.userData]);
 
   useEffect(() => {
@@ -82,6 +97,7 @@ export const ProfilePage = () => {
 
   const resetStates = () => {
     setDescription("");
+    setSelectedColor('')
   };
 
   const handleSave = () => {
@@ -92,6 +108,7 @@ export const ProfilePage = () => {
         description: description,
         showPhone: showPhone,
         showEmail: showEmail,
+        selectedColor: selectedColor,
       };
       dispatch(actions.updateUser(updatedUser));
     }
@@ -102,6 +119,10 @@ export const ProfilePage = () => {
 
   const handleClose = () => {
     setOpenDelete(false);
+  };
+
+  const handleColors = (e) => {
+    setSelectedColor(e.hex);
   };
 
   const deleteAllHighlights = () => {
@@ -146,45 +167,70 @@ export const ProfilePage = () => {
             } have gathered all their socials at ShareMySocials.`}
           />
 
+          <meta
+            name="description"
+            content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"
+          />
 
+          <meta
+            itemprop="name"
+            content={`${user && user.username} | ShareMySocials.`}
+          />
+          <meta
+            itemprop="description"
+            content={`${
+              user && user.username
+            } have gathered all their socials at ShareMySocials.`}
+          />
+          <meta
+            itemprop="image"
+            content="https://www.sharemysocials.com/images/secondimg2.png"
+          />
 
-<meta name="description" content="All your socials at one place! Add highlights about latest social posts, links or news about you. Register now for free!"/>
-  
+          <meta
+            property="og:url"
+            content={`https://sharemysocials.com/${user && user.username}`}
+          />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:title"
+            content={`${user && user.username} | ShareMySocials.`}
+          />
+          <meta
+            property="og:description"
+            content={`${
+              user && user.username
+            } have gathered all their socials at ShareMySocials.`}
+          />
+          <meta
+            property="og:image"
+            content="https://www.sharemysocials.com/images/secondimg2.png"
+          />
 
-  <meta itemprop="name" content={`${
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content={`${user && user.username} | ShareMySocials.`}
+          />
+          <meta
+            name="twitter:description"
+            content={`${
               user && user.username
-            } | ShareMySocials.`}/>
-  <meta itemprop="description" content={`${
-              user && user.username
-            } have gathered all their socials at ShareMySocials.`}/>
-  <meta itemprop="image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
-  
-
-  <meta property="og:url" content={`https://sharemysocials.com/${user && user.username}`}/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:title" content={`${
-              user && user.username
-            } | ShareMySocials.`}/>
-  <meta property="og:description" content={`${
-              user && user.username
-            } have gathered all their socials at ShareMySocials.`}/>
-  <meta property="og:image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
-  
-
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content={`${
-              user && user.username
-            } | ShareMySocials.`}/>
-  <meta name="twitter:description" content={`${
-              user && user.username
-            } have gathered all their socials at ShareMySocials.`}/>
-  <meta name="twitter:image" content="https://www.sharemysocials.com/images/secondimg2.png"/>
+            } have gathered all their socials at ShareMySocials.`}
+          />
+          <meta
+            name="twitter:image"
+            content="https://www.sharemysocials.com/images/secondimg2.png"
+          />
         </Helmet>
       )}
       <Navbar />
       <DndProvider options={HTML5toTouch}>
         {user && (
-          <div className="profile-wrapper">
+          <BackgroundDiv
+            bgcolor={selectedColor}
+            className={!selectedColor && "profile-wrapper"}
+          >
             <Container maxWidth="md">
               <Grid className="wrapper-bottom" container>
                 <Grid item md={12} xs={12}>
@@ -225,6 +271,35 @@ export const ProfilePage = () => {
                         />
                       )}
                     </div>
+                    {editMode && (
+                      <>
+                        <Button
+                          className="edit-bg-btn"
+                          onClick={() => setShowColors(!showColors)}
+                        >
+                          Change Background{" "}
+                        </Button>
+
+                        {showColors && (
+                          <div className="color-wrapper">
+                            <p>Choose color</p>
+                            <SwatchesPicker
+                              onChange={(e) => {
+                                handleColors(e);
+                              }}
+                            />
+                            <Button
+                              className="reset-bg-btn"
+                              onClick={() => {
+                                setSelectedColor(null);
+                              }}
+                            >
+                              Reset background
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    )}
                     {/* {editMode && (
                         <FormControlLabel
                           control={
@@ -375,7 +450,7 @@ export const ProfilePage = () => {
                 </DialogActions>
               </Dialog>
             </Container>
-          </div>
+          </BackgroundDiv>
         )}
       </DndProvider>
     </>

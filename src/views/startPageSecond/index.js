@@ -77,7 +77,7 @@ export const StartPageSecond = () => {
       <Grid container item md={12} className="second">
         <Grid item md={6} className="img-second">
           <div className="video">
-          <Player className="yolo" fluid={false} playsInline muted autoPlay preload loop src="/images/sms2.mp4" />
+          <Player className="yolo" fluid={false} playsInline muted autoPlay preload={"auto"} loop src="/images/sms2.mp4" />
           </div>
         </Grid>
         <Grid item md={6} className="text-second">
