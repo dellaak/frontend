@@ -9,7 +9,8 @@ import authorizationService from "../../services/authService";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions/rootActions";
 import { Footer } from "../../components/footer";
-import { Player } from "video-react";
+import Slide from "react-reveal/Slide";
+import Fade from "react-reveal/Fade";
 
 export const StartPage = () => {
   const dispatch = useDispatch();
@@ -98,30 +99,34 @@ export const StartPage = () => {
                 </p>
               </div>
             ) : (
-              <div className="text-wrap">
-                {/* <img className="gif-landing" src="/images/gif4.gif" /> */}
-                <div>
-                <h2>Tired of linking to different social accounts?</h2>
-                <p>
-                  Register now and gather all your socials at one place{" "}
-                  <b>FOR FREE!</b>
-                </p>
-                <p>Customize your profile and grow followers on all platforms</p>
-                <p>One QR-Code or link for all your socials</p>
-                <p>
-                  <i>
-                    Check out our profile{" "}
-                    <a
-                      className="a-tag-example"
-                      target="_blank"
-                      href="https://www.sharemysocials.com/sharemysocials"
-                    >
-                      ShareMySocials Profile
-                    </a>
-                  </i>
-                </p>
+              <Fade left>
+                <div className="text-wrap">
+                  {/* <img className="gif-landing" src="/images/gif4.gif" /> */}
+                  <div>
+                    <h2>Tired of linking to different social accounts?</h2>
+                    <p>
+                      Register now and gather all your socials at one place{" "}
+                      <b>FOR FREE!</b>
+                    </p>
+                    <p>
+                      Customize your profile and grow followers on all platforms
+                    </p>
+                    <p>One QR-Code or link for all your socials</p>
+                    <p>
+                      <i>
+                        Check out our profile{" "}
+                        <a
+                          className="a-tag-example"
+                          target="_blank"
+                          href="https://www.sharemysocials.com/sharemysocials"
+                        >
+                          ShareMySocials Profile
+                        </a>
+                      </i>
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Fade>
             )}
           </Grid>
           <Grid container item md={5} justify="center" alignItems="center">
@@ -139,7 +144,9 @@ export const StartPage = () => {
                 )}
               </div>
             ) : (
-              <RegisterForm />
+              <Fade right>
+                <RegisterForm />
+              </Fade>
             )}
           </Grid>
         </Grid>
@@ -147,9 +154,11 @@ export const StartPage = () => {
       </div>
 
       <div>
-        <h2 className="second-title">
-          What's <img className="textlogo" src="/images/text-logo2.png" />
-        </h2>
+        <Slide left>
+          <h2 className="second-title">
+            What's <img className="textlogo" src="/images/text-logo2.png" />
+          </h2>
+        </Slide>
 
         <Grid container justify="space-evenly" className="second-page">
           <StartPageSecond />
