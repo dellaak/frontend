@@ -153,7 +153,7 @@ export const StartPage = () => {
         <div className="icon-scroll"></div>
       </div>
 
-      <div>
+      <div className="wrapper-second-top">
         <Slide left>
           <h2 className="second-title">
             What's <img className="textlogo" src="/images/text-logo2.png" />

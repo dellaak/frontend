@@ -2,8 +2,6 @@
   padding: 20px;
 }
 
-
-
 .settings-wrap {
   display: flex;
   justify-content: center;
@@ -34,10 +32,10 @@
   font-size: 3rem !important;
 }
 
-.email-wrap{
+.email-wrap {
   display: flex;
   align-items: center;
-  a{
+  a {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -66,21 +64,21 @@
   }
 }
 
-.edit-button-mode{
+.edit-button-mode {
   background: white !important;
   border-radius: 9px !important;
-float: right;
-margin-bottom: 10px !important;
+  float: right;
+  margin-bottom: 10px !important;
 }
 
-.show-profile-btn{
+.show-profile-btn {
   color: white !important;
   text-decoration: underline;
   border-radius: 9px !important;
   font-family: "Baloo Tamma 2", cursive;
 }
 
-.edit-bg-btn{
+.edit-bg-btn {
   background-color: #03a9f4 !important;
   color: white !important;
   text-decoration: underline;
@@ -88,19 +86,17 @@ margin-bottom: 10px !important;
   font-family: "Baloo Tamma 2", cursive;
 }
 
-
-.reset-bg-btn{
-  background-color: #fff!important;
+.reset-bg-btn {
+  background-color: #fff !important;
   color: #000 !important;
-  margin-top: 10px ;
+  margin-top: 10px;
   margin: 0 auto;
   display: flex;
   text-decoration: underline;
   font-family: "Baloo Tamma 2", cursive;
 }
 
-
-.color-wrapper{
+.color-wrapper {
   display: flex;
   flex-direction: column;
 }
@@ -108,89 +104,90 @@ margin-bottom: 10px !important;
 .highlight-text {
   border-top: 1px solid lightgray !important;
   color: white;
+  text-shadow: 1px 2px 3px #666;
   text-align: center;
   padding: 5px;
   margin-bottom: 40px;
   font-family: "Baloo Tamma 2", cursive;
-  font-size: 16px;
+  font-size: 1rem !important;
 }
 
-
-.edit-active-social{
+.edit-active-social {
   border: 10px solid white !important;
 }
 
-.reorder-text{
+.reorder-text {
   text-align: center;
   font-family: "Baloo Tamma 2", cursive;
-color: white;
-width: 100%;
+  color: white;
+  width: 100%;
 }
 
-.edit-switch{
+.edit-switch {
   margin-left: 10px;
-  .MuiIconButton-label{
-    color:#03a9f4;
+  .MuiIconButton-label {
+    color: #03a9f4;
   }
-  .MuiSwitch-track{
+  .MuiSwitch-track {
     background: gray;
   }
-  .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track{
+  .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
     opacity: 0.6;
-    background:white
+    background: white;
   }
 }
 
-.phone-input{
-  .MuiFormLabel-root{
-    color:lightgray;
+.phone-input {
+  .MuiFormLabel-root {
+    color: lightgray;
   }
-  .MuiOutlinedInput-notchedOutline{
+  .MuiOutlinedInput-notchedOutline {
     border-color: white;
   }
-  .MuiOutlinedInput-root,.MuiOutlinedInput-notchedOutline,.Mui-focused{
+  .MuiOutlinedInput-root,
+  .MuiOutlinedInput-notchedOutline,
+  .Mui-focused {
     border-color: white !important;
   }
-  .PrivateNotchedOutline-legendLabelled-3{
-    color:white
+  .PrivateNotchedOutline-legendLabelled-3 {
+    color: white;
   }
-  .MuiFormLabel-root.Mui-focused{
-    color:lightgray;
+  .MuiFormLabel-root.Mui-focused {
+    color: lightgray;
   }
-  input{
-    color: white;;
+  input {
+    color: white;
   }
 }
 
-
-.no-socials-text{
+.no-socials-text {
   font-family: "Baloo Tamma 2", cursive;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  h3{
-    color:white;
+  h3 {
+    color: white;
     font-size: 2rem;
     margin: 0;
   }
 
-  p{
-    color:white;
+  p {
+    color: white;
     font-size: 1.5rem;
   }
 }
 
-.email-icon-link{
- font-size: 2.5rem !important;
+.email-icon-link {
+  font-size: 2.5rem !important;
 }
 
-.highlight-window-wrap{
+.highlight-window-wrap {
   margin: 0 auto !important;
   margin-bottom: 50px !important;
 }
 
-.delete-all-hs{
+.delete-all-hs {
   background-color: #d11a2a !important;
   width: 100%;
   font-family: "Baloo Tamma 2", cursive;
@@ -198,16 +195,16 @@ width: 100%;
   margin-bottom: 5px !important;
   border-radius: 0 !important;
   color: white !important;
-  .trash-all-icon{
+  .trash-all-icon {
     color: white;
   }
 }
 
-.highlight-buttons{
+.highlight-buttons {
   display: flex;
 }
 
-.edit-bg{
+.edit-bg {
   background-color: #182d51b5;
   padding: 20px;
   border-radius: 9px;

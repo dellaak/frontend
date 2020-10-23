@@ -38,6 +38,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { SwatchesPicker } from "react-color";
 import { BackgroundDiv } from "./styledProfile";
 import { userDeleteFail } from "../../store/actions/userActions";
+import styled from "styled-components";
 
 export const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ export const ProfilePage = () => {
   const userData = useSelector((state) => state.user);
   const publicData = useSelector((state) => state.public);
   const authData = useSelector((state) => state.auth);
-
+  const [hue, setHue] = useState(340);
   useEffect(() => {
     dispatch(actions.getPublicUser());
   }, []);
@@ -97,7 +98,7 @@ export const ProfilePage = () => {
 
   const resetStates = () => {
     setDescription("");
-    setSelectedColor('')
+    setSelectedColor("");
   };
 
   const handleSave = () => {
@@ -154,6 +155,10 @@ export const ProfilePage = () => {
       </Social>
     );
   };
+
+  const RangeInput = styled.input.attrs({
+    type: "range",
+  })``;
 
   return authorizationService.isAuthenticated() ? (
     <>
@@ -226,7 +231,7 @@ export const ProfilePage = () => {
       )}
       <Navbar />
       <DndProvider options={HTML5toTouch}>
-        {user  &&(
+        {user && (
           <BackgroundDiv
             bgcolor={selectedColor}
             className={user && !selectedColor && "profile-wrapper"}
@@ -283,6 +288,7 @@ export const ProfilePage = () => {
                         {showColors && (
                           <div className="color-wrapper">
                             <p>Choose color</p>
+
                             <SwatchesPicker
                               onChange={(e) => {
                                 handleColors(e);
